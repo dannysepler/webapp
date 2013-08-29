@@ -34,3 +34,27 @@ app.get('/users', user.list);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Home'
+  });
+});
+
+app.get('/about', function(req, res){
+  res.render('about', {
+    title: 'About'
+  });
+});
+
+app.get('/signup', function(req, res){
+  res.render('signup', {
+    title: 'Sign-up'
+  });
+});
+
+app.get('/thanks', function(req, res){
+  res.render('thanks', {
+    title: 'Thanks!'
+  });
+});
