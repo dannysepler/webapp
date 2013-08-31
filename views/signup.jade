@@ -3,13 +3,13 @@ extends layout
 block content
   h1= title
   p Welcome to our sign-up page!
-  form(method="link" action="/thanks")
+  form(method="post", action="http://api.eatable.at:3000/users.json")
     div(data-role='fieldcontain')
       fieldset(data-role='controlgroup')
-        label(for='email') email
-           input(id='email',type='text',value='')
-    div(data-role='fieldcontain')   
-      input(type='submit',value='Sign Up',data-transition='fade', data-theme='c', href="/thanks")
+        input(name='user[email]',id='email',type='text',placeholder='What\'s your email?')
+    div(data-role='fieldcontain')
+      input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
+  a(href="/")!= "Back to home"
 
 //form(action='/signup',method='post')
     //div(data-role='fieldcontain')

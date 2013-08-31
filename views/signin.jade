@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	h1=title
+	form(method="link" link="/thanks")
+		input(type="textbox" placeholder="user")
+		input(type="password", placeholder="pass",value="")
+		input(type="submit", value="Sign me in!", href="/thanks")
