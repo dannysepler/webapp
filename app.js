@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 var connect = require('connect');
 var request = require('request');
+var port = process.env.PORT || 3000;
 //var sys = require('sys');
 //var s = connect.createServer();
 
