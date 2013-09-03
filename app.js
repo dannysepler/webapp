@@ -65,7 +65,6 @@ app.get('/signup', function(req, res) {
 app.post('/signup', function(requests,response) {
   //note that it's called requests instead of request. this is
   //not to confuse it with the node 'request' library
-  sys.puts(requests.body.name);
   request({
     url: "http://api.eatable.at:3000/users.json",
     body: "{ \"user\": { \"email\": \""+requests.body.name+"\", \"provider\": \"facebook\", \"uid\": \"37397\" } }",
