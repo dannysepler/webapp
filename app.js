@@ -10,7 +10,7 @@ var http = require('http');
 var path = require('path');
 var connect = require('connect');
 var request = require('request');
-var sys = require('sys');
+//var sys = require('sys');
 //var s = connect.createServer();
 
 var app = express();
