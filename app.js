@@ -65,7 +65,8 @@ app.post('/signup', function(requests,response) {
   //note that it's called requests instead of request. this is
   //not to confuse it with the node 'request' library
   request({
-    url: "http://api.eatable.at:3000/users.json",
+    url: "https://api-eatable-at-orb71thzlrwl.runscope.net:3000/users.json", // for heroku
+    //url: "https://api.eatable.at:3000/users.json" // for localhost
     body: "{ \"user\": { \"email\": \""+requests.body.name+"\", \"provider\": \"facebook\", \"uid\": \"37397\" } }",
     headers: {"Content-Type": "application/json"},
     method: "POST"
