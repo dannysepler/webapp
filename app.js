@@ -59,7 +59,6 @@ app.get('/signup', function(req, res) {
   });
 });
 
-/*
 app.post('/signup', function(requests,response) {
   //note that it's called requests instead of request. this is
   //not to confuse it with the node 'request' library
@@ -75,7 +74,6 @@ app.post('/signup', function(requests,response) {
   });
   response.redirect('/thanks');
 });
-*/
 
 app.get('/thanks', function(req, res){
   res.render('thanks', {
