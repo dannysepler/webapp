@@ -8,6 +8,10 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var connect = require('connect');
+var request = require('request');
+var sys = require('sys');
+//var s = connect.createServer();
 
 var app = express();
 
@@ -44,7 +48,6 @@ app.get('/', function(req, res){
   res.render('index', {
     title: 'Home'
   });
-  res.end('Hi there!')
 });
 
 app.get('/about', function(req, res){
@@ -53,26 +56,28 @@ app.get('/about', function(req, res){
   });
 });
 
-app.get('/signup', function(req, res){
+app.get('/signup', function(req, res) {
   res.render('signup', {
     title: 'Sign-up'
   });
 });
 
-app.post('/signup', createUser);
-
-function createUser(req, res){
-  req({
+app.post('/signup', function(requests,response) {
+  //note that it's called requests instead of request. this is
+  //not to confuse it with the node 'request' library
+  sys.puts(requests.body.name);
+  request({
     url: "http://api.eatable.at:3000/users.json",
-    body: "{ \"user\": { \"name\": \"Connor Jacobsen\", \"email\": \"connor@eatable.at\", \"beta_key\": \"abc123\", \"in_beta\": \"true\", \"first_name\": \"Connor\", \"last_name\": \"Jacobsen\", \"provider\": \"facebook\", \"uid\": \"37397\", \"token\": \"kjk3u3l\", \"expires_at\": \"3838032\", \"expires\": \"true\" } }",
+    body: "{ \"user\": { \"email\": \""+requests.body.name+"\", \"provider\": \"facebook\", \"uid\": \"37397\" } }",
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    console.log("Status", res.statusCode);
-    console.log("Headers", JSON.stringify(res.headers));
+    console.log("Status", response.statusCode);
+    console.log("Headers", JSON.stringify(response.headers));
     console.log("Response received", body);
   });
-}
+  response.redirect('/thanks');
+});
 
 app.get('/thanks', function(req, res){
   res.render('thanks', {
