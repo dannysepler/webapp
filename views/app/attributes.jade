@@ -1,0 +1,44 @@
+extends ../app
+
+block content
+	h1 Attributes
+	a(href='/app/attributes') Attributes  
+	a(href='/app/cities') Cities  
+	a(href='/app/countries') Countries  
+	a(href='/app/days') Days  
+	a(href='/app/foods') Foods 
+	a(href='/app/months') Months  
+	a(href='/app/states') States    
+
+	p 
+	p ##########################
+	p
+	p attributes.json (GET)
+	p response: #{data1.response}
+	p
+	p ##########################
+	p
+	p attributes/43.json (GET)
+	p response: #{data2.response}
+	p
+	p ##########################
+	p
+	p attributes.json (POST)
+	form(method="POST", action="/app/attributes")
+		div
+			input(name="attribute", type='text', placeholder='add an attribute')
+		div
+			input(type='submit', name='submit', value='add me')
+	p
+	p ##########################
+	p
+	p attributes/43.json (PUT)
+	p (for updating a dish's attribute)
+	form(method="POST", action="/app/attributes/put")
+		div
+			input(name="attribute", type='text', placeholder='change an attribute')
+		div
+			input(type='submit', name='submit', value='change me')
+
+	p
+	p ##########################
