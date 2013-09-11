@@ -1,0 +1,18 @@
+extends ../app
+
+block content
+	h1 Attributes
+	a(href='/app/attributes') Attributes  
+	a(href='/app/cities') Cities  
+	a(href='/app/countries') Countries  
+	a(href='/app/days') Days  
+	a(href='/app/foods') Foods 
+	a(href='/app/months') Months  
+	a(href='/app/states') States    
+
+	p 
+	p ##########################
+	p
+	p status: #{data.status}
+	p headers: #{data.headers}
+	p response: #{data.response}
