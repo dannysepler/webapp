@@ -374,7 +374,7 @@ app.get('/app/days', function(req,res) {
   
   // request 2
   request({
-    url: "http://api.eatable.at:3000/days/50.json",
+    url: "http://api.eatable.at:3000/days/52.json",
     method: "GET"
   }, function (error, response, body) {
     //console.log("Status", response.statusCode);
@@ -396,7 +396,7 @@ app.get('/app/days', function(req,res) {
 app.post('/app/days', function(requests,response) {
   request({
     url: "http://api.eatable.at:3000/days.json",
-    body: "{ \"day\": { \"day\": \""+requests.body.day+"\" } }",
+    body: "{ \"day\": { \"name\": \""+requests.body.day+"\" } }",
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
@@ -409,8 +409,8 @@ app.post('/app/days', function(requests,response) {
 
 app.post('/app/days/put', function(requests,response) {
   request({
-    url: "http://api.eatable.at:3000/days/50.json",
-    body: "{ \"day\": { \"day\": \""+requests.body.day+"\" } }",
+    url: "http://api.eatable.at:3000/days/52.json",
+    body: "{ \"day\": { \"name\": \""+requests.body.day+"\" } }",
     headers: {"Content-Type": "application/json"},
     method: "PUT"
   }, function (error, response, body) {
