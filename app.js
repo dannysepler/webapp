@@ -554,5 +554,3 @@ app.post('/app/states/put', function(requests,response) {
   });
   response.redirect('/app/states');
 });
-
-function destringify(json1, json2) {}
