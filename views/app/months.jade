@@ -1,0 +1,44 @@
+extends ../app
+
+block content
+	h1 Attributes
+	a(href='/app/attributes') Attributes  
+	a(href='/app/cities') Cities  
+	a(href='/app/countries') Countries  
+	a(href='/app/days') Days  
+	a(href='/app/foods') Foods 
+	a(href='/app/months') Months  
+	a(href='/app/states') States    
+
+	p 
+	p ##########################
+	p
+	p months.json (GET)
+	p response: #{data1.response}
+	p
+	p ##########################
+	p
+	p months/60.json (GET)
+	p response: #{data2.response}
+	p
+	p ##########################
+	p
+	p months.json (POST)
+	form(method="POST", action="/app/months")
+		div
+			input(name="month", type='text', placeholder='add a month')
+		div
+			input(type='submit', name='submit', value='add me')
+	p
+	p ##########################
+	p
+	p months/60.json (PUT)
+	p (for updating a month)
+	form(method="POST", action="/app/months/put")
+		div
+			input(name="month", type='text', placeholder='change a month')
+		div
+			input(type='submit', name='submit', value='change me')
+
+	p
+	p ##########################
