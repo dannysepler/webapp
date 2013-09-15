@@ -182,12 +182,25 @@ app.get('/app', function(req,res) {
 });
 
 app.get('/app/attributes', function(req,res) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"attribute\":{\"name\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/attributes.json",
     method: "GET"
   }, function (error, response, body) {
-    res1atemp = body;
+    res1atemp = dejsoner(body);
   });
   
   // request 2
@@ -195,7 +208,7 @@ app.get('/app/attributes', function(req,res) {
     url: "http://api.eatable.at:3000/attributes/43.json",
     method: "GET"
   }, function (error, response, body) {
-    res2atemp = body;
+    res2atemp = dejsoner(body);
   });
   //function checkEmpty() {
     //if(res1atemp && res2atemp) {
@@ -228,6 +241,19 @@ app.post('/app/attributes', function(requests,response) {
 });
 
 app.post('/app/attributes/put', function(requests,response) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"city\":{\"name\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
+
   request({
     url: "http://api.eatable.at:3000/attributes/43.json",
     body: "{ \"attribute\": { \"name\": \""+requests.body.attribute+"\" } }",
@@ -240,12 +266,25 @@ app.post('/app/attributes/put', function(requests,response) {
 
 
 app.get('/app/cities', function(req,res) {
+
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"city\":{\"name\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/cities.json",
     method: "GET"
   }, function (error, response, body) {
-    res1btemp = body;
+    res1btemp = dejsoner(body);
   });
   
   // request 2
@@ -253,7 +292,7 @@ app.get('/app/cities', function(req,res) {
     url: "http://api.eatable.at:3000/cities/8.json",
     method: "GET"
   }, function (error, response, body) {
-    res2btemp = body;
+    res2btemp = dejsoner(body);
     //callback(render);
   });
   res.render('app/cities', {
@@ -309,7 +348,6 @@ app.get('/app/countries', function(req,res) {
   }, function (error, response, body) {
     res1ctemp = dejsoner(body);
 
-    //console.log(destringify(body));
   });
   
   // request 2
@@ -360,12 +398,25 @@ app.post('/app/countries/put', function(requests,response) {
 });
 
 app.get('/app/days', function(req,res) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"day\":{\"day\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/days.json",
     method: "GET"
   }, function (error, response, body) {
-    res1dtemp = body;
+    res1dtemp = dejsoner(body);
   });
   
   // request 2
@@ -373,7 +424,7 @@ app.get('/app/days', function(req,res) {
     url: "http://api.eatable.at:3000/days/58.json",
     method: "GET"
   }, function (error, response, body) {
-    res2dtemp = body;
+    res2dtemp = dejsoner(body);
   });
   res.render('app/days', {
     title: 'Days',
@@ -409,12 +460,27 @@ app.post('/app/days/put', function(requests,response) {
 });
 
 app.get('/app/foods', function(req,res) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"food\":{\"description\":\"","");
+        json=json.replace("\"name\":\""," -- ");
+        json=json.replace("\",","");
+        json=json.replace("\"}}","");
+      }
+      //json=json.replace(" ","")
+      return json;
+    }
+
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/foods.json",
     method: "GET"
   }, function (error, response, body) {
-    res1etemp = body;
+    res1etemp = dejsoner(body);
   });
   
   // request 2
@@ -422,7 +488,7 @@ app.get('/app/foods', function(req,res) {
     url: "http://api.eatable.at:3000/foods/34.json",
     method: "GET"
   }, function (error, response, body) {
-    res2etemp = body;
+    res2etemp = dejsoner(body);
   });
   res.render('app/foods', {
     title: 'Foods',
@@ -458,12 +524,24 @@ app.post('/app/foods/put', function(requests,response) {
 });
 
 app.get('/app/months', function(req,res) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"month\":{\"month\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/months.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ftemp = body;
+    res1ftemp = dejsoner(body);
   });
   
   // request 2
@@ -471,7 +549,7 @@ app.get('/app/months', function(req,res) {
     url: "http://api.eatable.at:3000/months/60.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ftemp = body;
+    res2ftemp = dejsoner(body);
   });
   res.render('app/months', {
     title: 'Months',
@@ -507,12 +585,24 @@ app.post('/app/months/put', function(requests,response) {
 });
 
 app.get('/app/states', function(req,res) {
+  function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"state\":{\"name\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","")
+      return json;
+    }
+
   // request 1
   request({
     url: "http://api.eatable.at:3000/states.json",
     method: "GET"
   }, function (error, response, body) {
-    res1gtemp = body;
+    res1gtemp = dejsoner(body);
   });
   
   // request 2
@@ -520,7 +610,7 @@ app.get('/app/states', function(req,res) {
     url: "http://api.eatable.at:3000/states/10.json",
     method: "GET"
   }, function (error, response, body) {
-    res2gtemp = body;
+    res2gtemp = dejsoner(body);
   });
   res.render('app/states', {
     title: 'States',
