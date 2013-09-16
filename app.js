@@ -171,7 +171,7 @@ app.get('/auth/facebook/callback',
 var res1atemp, res2atemp, res1btemp, res2btemp,
     res1ctemp, res2ctemp, res1dtemp, res2dtemp,
     res1etemp, res2etemp, res1ftemp, res2ftemp,
-    res1gtemp, res2gtemp;
+    res1gtemp, res2gtemp, res1htemp;
  // we'll eventually have the app
  // running without these
 
@@ -643,4 +643,50 @@ app.post('/app/states/put', function(requests,response) {
   }, function (error, response, body) {
   });
   response.redirect('/app/states');
+});
+
+// STREETS
+app.get('/app/streets', function(req,res) {
+
+function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("{\"street\":{\"name\":\""," ");
+        json=json.replace("\"}}","");
+      }
+      json=json.replace(" ","");
+      console.log('dejsonified: ' + json);
+      return json;
+    }
+
+ request({
+    url: "http://eatable1.apiary.io/streets.json",
+    method: "GET"
+  }, function (error, response, body) {
+    console.log("Status", res.statusCode);
+    console.log("Headers", JSON.stringify(res.headers));
+    console.log("Response received", body);
+    res1htemp = dejsoner(body);
+  });
+  res.render('app/streets', {
+    title: 'Streets',
+    data1: {
+      status: res.statusCode,
+      headers: JSON.stringify(res.headers),
+      response: JSON.stringify(res1htemp)
+    }
+  });
+});
+
+app.post('/app/streets', function(requests,response) {
+  request({
+    url: "http://api.eatable.at:3000/streets.json",
+    body: "{ \"street\": { \"name\": \""+requests.body.street+"\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+  });
+  response.redirect('/app/streets');
 });
