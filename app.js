@@ -9,17 +9,18 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var request = require('request');
-//var sys = require('sys');
-//var s = connect.createServer();
 var passport = require('passport');
 var util = require('util');
 
+var functions = require('./public/javascripts/functions.js');
+    //this is where all our functions are!
 
-
+/*
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
 var FacebookStrategy = require('passport-facebook').Strategy;
+*/
 
 var app = express();
 
@@ -184,7 +185,7 @@ app.get('/app/attributes', function(req,res) {
     url: "http://api.eatable.at:3000/attributes.json",
     method: "GET"
   }, function (error, response, body) {
-    res1atemp = single_dejsoner(body, "attribute", "name");
+    res1atemp=functions.single_dejsoner(body,"attribute","name");
   });
   
   // request 2
@@ -192,8 +193,8 @@ app.get('/app/attributes', function(req,res) {
     url: "http://api.eatable.at:3000/attributes/43.json",
     method: "GET"
   }, function (error, response, body) {
-    res2atemp = single_dejsoner(body, "attribute", "name");
-    res2atemp = unlister(res2atemp);
+    res2atemp = functions.single_dejsoner(body, "attribute", "name");
+    res2atemp = functions.unlister(res2atemp);
   });
 
   var interval = setInterval(check,40);
@@ -245,7 +246,7 @@ app.get('/app/cities', function(req,res) {
     url: "http://api.eatable.at:3000/cities.json",
     method: "GET"
   }, function (error, response, body) {
-    res1btemp = single_dejsoner(body, "city", "name");
+    res1btemp = functions.single_dejsoner(body, "city", "name");
   });
   
   // request 2
@@ -253,8 +254,8 @@ app.get('/app/cities', function(req,res) {
     url: "http://api.eatable.at:3000/cities/8.json",
     method: "GET"
   }, function (error, response, body) {
-    res2btemp = single_dejsoner(body,"city","name");
-    res2btemp = unlister(res2btemp);
+    res2btemp = functions.single_dejsoner(body,"city","name");
+    res2btemp = functions.unlister(res2btemp);
   });
 
   var interval = setInterval(check,40);
@@ -307,7 +308,7 @@ app.get('/app/countries', function(req,res) {
     url: "http://api.eatable.at:3000/countries.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ctemp = single_dejsoner(body,"country","name");
+    res1ctemp = functions.single_dejsoner(body,"country","name");
 
   });
   
@@ -316,8 +317,8 @@ app.get('/app/countries', function(req,res) {
     url: "http://api.eatable.at:3000/countries/24.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ctemp = single_dejsoner(body,"country","name");
-    res2ctemp = unlister(res2ctemp);
+    res2ctemp = functions.single_dejsoner(body,"country","name");
+    res2ctemp = functions.unlister(res2ctemp);
   });
 
   var interval = setInterval(check,40);
@@ -369,7 +370,7 @@ app.get('/app/days', function(req,res) {
     url: "http://api.eatable.at:3000/days.json",
     method: "GET"
   }, function (error, response, body) {
-    res1dtemp = single_dejsoner(body,"day","day");
+    res1dtemp = functions.single_dejsoner(body,"day","day");
   });
   
   // request 2
@@ -377,8 +378,8 @@ app.get('/app/days', function(req,res) {
     url: "http://api.eatable.at:3000/days/58.json",
     method: "GET"
   }, function (error, response, body) {
-    res2dtemp = single_dejsoner(body,"day","day");
-    res2dtemp = unlister(res2dtemp);
+    res2dtemp = functions.single_dejsoner(body,"day","day");
+    res2dtemp = functions.unlister(res2dtemp);
   });
 
   var interval = setInterval(check,40);
@@ -430,7 +431,7 @@ app.get('/app/foods', function(req,res) {
     url: "http://api.eatable.at:3000/foods.json",
     method: "GET"
   }, function (error, response, body) {
-    res1etemp = double_object_dejsoner(body, "food", "description", "name");
+    res1etemp = functions.double_dejsoner(body, "food", "description", "name");
   });
   
   // request 2
@@ -438,8 +439,8 @@ app.get('/app/foods', function(req,res) {
     url: "http://api.eatable.at:3000/foods/34.json",
     method: "GET"
   }, function (error, response, body) {
-    res2etemp = double_object_dejsoner(body, "food", "description", "name");
-    res2etemp = unlister(res2etemp);
+    res2etemp = functions.double_dejsoner(body, "food", "description", "name");
+    res2etemp = functions.unlister(res2etemp);
   });
 
   var interval = setInterval(check,40);
@@ -491,7 +492,7 @@ app.get('/app/months', function(req,res) {
     url: "http://api.eatable.at:3000/months.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ftemp = single_dejsoner(body,"month","month");
+    res1ftemp = functions.single_dejsoner(body,"month","month");
   });
   
   // request 2
@@ -499,8 +500,8 @@ app.get('/app/months', function(req,res) {
     url: "http://api.eatable.at:3000/months/60.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ftemp = single_dejsoner(body,"month","month");
-    res2ftemp = unlister(res2ftemp);
+    res2ftemp = functions.single_dejsoner(body,"month","month");
+    res2ftemp = functions.unlister(res2ftemp);
   });
 
   var interval = setInterval(check,40);
@@ -551,7 +552,7 @@ app.get('/app/states', function(req,res) {
     url: "http://api.eatable.at:3000/states.json",
     method: "GET"
   }, function (error, response, body) {
-    res1gtemp = single_dejsoner(body,"state","name");
+    res1gtemp = functions.single_dejsoner(body,"state","name");
   });
   
   // request 2
@@ -559,8 +560,8 @@ app.get('/app/states', function(req,res) {
     url: "http://api.eatable.at:3000/states/10.json",
     method: "GET"
   }, function (error, response, body) {
-    res2gtemp = single_dejsoner(body,"state","name");
-    res2gtemp = unlister(res2gtemp);
+    res2gtemp = functions.single_dejsoner(body,"state","name");
+    res2gtemp = functions.unlister(res2gtemp);
   });
 
   var interval = setInterval(check,40);
@@ -695,41 +696,3 @@ app.post('/app/streets/put', function(requests,response) {
   });
   response.redirect('/app/streets');
 });
-
-// <---------------------------------->
-//          IMPORTANT METHODS
-// <---------------------------------->
-
-function single_dejsoner(json, name, first) {
-  json=json.replace("[","");
-  json=json.replace("]","");
-  json=json.replace(" ]","");
-  for (var i = 0; i<json.length-1;i++) {
-    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
-    json=json.replace("\"}},","</li>");
-  }
-  json=json.replace("\"}}","</li>");
-  json=json.replace(" ","")
-  return json;
-}
-
-function double_object_dejsoner(json, name, first, second) {
-  json=json.replace("[","");
-  json=json.replace("]","");
-  json=json.replace(" ]","");
-  for (var i = 0; i<json.length-1;i++) {
-    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
-    json=json.replace("\""+second+"\":\""," &clubs; ");
-    json=json.replace("\",","");
-    json=json.replace("\"}},","</li>");
-  }
-  json=json.replace("\"}}","");
-  json=json.replace(" ","")
-  return json;
-}
-
-function unlister(input) {
-  input=input.replace("<li>","");
-  input=input.replace("</li>","");
-  return input;
-}
