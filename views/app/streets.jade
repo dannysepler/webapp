@@ -1,0 +1,46 @@
+extends ../app
+
+block content
+	h1 Streets
+	a(href='/app/attributes') Attributes 
+	a(href='/app/cities') Cities 
+	a(href='/app/countries') Countries 
+	a(href='/app/days') Days 
+	a(href='/app/foods') Foods 
+	a(href='/app/months') Months 
+	a(href='/app/states') States 
+	a(href='/app/streets') Streets 
+	a(href='/app/users') Users  
+
+	p
+	p ##########################
+	p
+	p streets.json (GET)
+	p response: #{data1.response}
+	p
+	p ##########################
+	p
+	p streets/67.json
+	p response: #{data2.response}
+	p
+	p ##########################
+	p
+	p streets.json (POST)
+	form(method="POST", action="/app/streets")
+		div
+			input(name="street", type='text', placeholder='add a street')
+		div
+			input(type='submit', name='submit', value='add me')
+	p
+	p ##########################
+	p
+	p streets/67.json (PUT)
+	p (for updating a street)
+	form(method="POST", action="/app/streets/put")
+		div
+			input(name="street", type='text', placeholder='change street name')
+		div
+			input(type='submit', name='submit', value='change me')
+
+	p
+	p ##########################
