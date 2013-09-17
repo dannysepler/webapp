@@ -80,9 +80,6 @@ app.post('/signup', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
   });
   response.redirect('/thanks');
 });
@@ -187,12 +184,18 @@ app.get('/app/attributes', function(req,res) {
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"attribute\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"attribute\":{\"name\":\"","<li>");
+        json=json.replace("\"}},","</li>");
       }
+      json=json.replace("\"}}","</li>");
       json=json.replace(" ","")
       return json;
     }
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input=input.replace("</li>","");
+    return input;
+  }
 
 
   // request 1
@@ -209,24 +212,28 @@ app.get('/app/attributes', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2atemp = dejsoner(body);
+    res2atemp = unlister(res2atemp);
   });
-  //function checkEmpty() {
-    //if(res1atemp && res2atemp) {
-  res.render('app/attributes', {
-    title: 'Attributes',
-    data1: {
-      response: JSON.stringify(res1atemp)
-    },
-    data2: {
-      response: JSON.stringify(res2atemp)
+  
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1atemp!=null) && (res2atemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
-    //}
-    //else {
-      //setTimeout('checkEmpty();',100);
-      //return;
-    //}
-  //}
+  }
+
+  function render() {
+    res.render('app/attributes', {
+      title: 'Attributes',
+      data1: {
+        response: res1atemp
+      },
+      data2: {
+        response: res2atemp
+      }
+    });
+  }
 });
 
 app.post('/app/attributes', function(requests,response) {
@@ -241,19 +248,6 @@ app.post('/app/attributes', function(requests,response) {
 });
 
 app.post('/app/attributes/put', function(requests,response) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"city\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-
   request({
     url: "http://api.eatable.at:3000/attributes/43.json",
     body: "{ \"attribute\": { \"name\": \""+requests.body.attribute+"\" } }",
@@ -266,18 +260,23 @@ app.post('/app/attributes/put', function(requests,response) {
 
 
 app.get('/app/cities', function(req,res) {
-
   function dejsoner(json) {
       json=json.replace("[","");
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"city\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"city\":{\"name\":\"","<li>");
+        json=json.replace("\"}},","</li>");
       }
+      json=json.replace("\"}}","</li>");
       json=json.replace(" ","")
       return json;
     }
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input=input.replace("</li>","");
+    return input;
+  }
 
   // request 1
   request({
@@ -293,17 +292,29 @@ app.get('/app/cities', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2btemp = dejsoner(body);
-    //callback(render);
+    res2btemp = unlister(res2btemp);
   });
-  res.render('app/cities', {
-    title: 'Cities',
-    data1: {
-      response: JSON.stringify(res1btemp)
-    },
-    data2: {
-      response: JSON.stringify(res2btemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1btemp!=null) && (res2btemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/cities', {
+      title: 'Cities',
+      data1: {
+        response: res1btemp,
+        test: "test"
+      },
+      data2: {
+        response: res2btemp
+      }
+    });
+  }
 });
 
 app.post('/app/cities', function(requests,response) {
@@ -329,17 +340,24 @@ app.post('/app/cities/put', function(requests,response) {
 });
 
 app.get('/app/countries', function(req,res) {
-    function dejsoner(json) {
+  function dejsoner(json) {
       json=json.replace("[","");
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"country\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"country\":{\"name\":\"","<li>");
+        json=json.replace("\"}},","</li>");
       }
+      json=json.replace("\"}}","</li>");
       json=json.replace(" ","")
       return json;
     }
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input=input.replace("</li>","");
+    return input;
+  }
+
 
     //request 1
   request({
@@ -356,17 +374,28 @@ app.get('/app/countries', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2ctemp = dejsoner(body);
+    res2ctemp = unlister(res2ctemp);
   });
 
-  res.render('app/countries', {
-    title: 'Countries',
-    data1: {
-      response: JSON.stringify(res1ctemp)
-    },
-    data2: {
-      response: JSON.stringify(res2ctemp)
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1ctemp!=null) && (res2ctemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/countries', {
+      title: 'Countries',
+      data1: {
+        response: res1ctemp
+      },
+      data2: {
+        response: res2ctemp
+      }
+    });
+  }
 });
 
 app.post('/app/countries', function(requests,response) {
@@ -376,9 +405,6 @@ app.post('/app/countries', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    //console.log("Status", response.statusCode);
-    //console.log("Headers", JSON.stringify(response.headers));
-    //console.log("Response received", body);
   });
   response.redirect('/app/countries');
 });
@@ -390,9 +416,6 @@ app.post('/app/countries/put', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "PUT"
   }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
   });
   response.redirect('/app/countries');
 });
@@ -403,12 +426,19 @@ app.get('/app/days', function(req,res) {
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"day\":{\"day\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"day\":{\"day\":\"","<li>");
+        json=json.replace("\"}},","</li>");
       }
+      json=json.replace("\"}}","</li>");
       json=json.replace(" ","")
       return json;
     }
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input=input.replace("</li>","");
+    return input;
+  }
+
 
 
   // request 1
@@ -425,16 +455,28 @@ app.get('/app/days', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2dtemp = dejsoner(body);
+    res2dtemp = unlister(res2dtemp);
   });
-  res.render('app/days', {
-    title: 'Days',
-    data1: {
-      response: JSON.stringify(res1dtemp)
-    },
-    data2: {
-      response: JSON.stringify(res2dtemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1dtemp!=null) && (res2dtemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/days', {
+      title: 'Days',
+      data1: {
+        response: res1dtemp
+      },
+      data2: {
+        response: res2dtemp
+      }
+    });
+  }
 });
 
 app.post('/app/days', function(requests,response) {
@@ -460,19 +502,26 @@ app.post('/app/days/put', function(requests,response) {
 });
 
 app.get('/app/foods', function(req,res) {
-  function dejsoner(json) {
+    function dejsoner(json) {
       json=json.replace("[","");
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"food\":{\"description\":\"","");
-        json=json.replace("\"name\":\""," -- ");
+        json=json.replace("{\"food\":{\"description\":\"","<li>");
+        json=json.replace("\"name\":\""," &clubs; ");
         json=json.replace("\",","");
-        json=json.replace("\"}}","");
+        json=json.replace("\"}},","</li>");
       }
-      //json=json.replace(" ","")
+      json=json.replace("\"}}","");
+      json=json.replace(" ","")
       return json;
     }
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input=input.replace("</li>","");
+    return input;
+  }
+
 
 
   // request 1
@@ -489,16 +538,28 @@ app.get('/app/foods', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2etemp = dejsoner(body);
+    res2etemp = unlister(res2etemp);
   });
-  res.render('app/foods', {
-    title: 'Foods',
-    data1: {
-      response: JSON.stringify(res1etemp)
-    },
-    data2: {
-      response: JSON.stringify(res2etemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1etemp!=null) && (res2etemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/foods', {
+      title: 'Foods',
+      data1: {
+        response: res1etemp
+      },
+      data2: {
+        response: res2etemp
+      }
+    });
+  }
 });
 
 app.post('/app/foods', function(requests,response) {
@@ -529,12 +590,18 @@ app.get('/app/months', function(req,res) {
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"month\":{\"month\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"month\":{\"month\":\"","<li>");
+        json=json.replace("\"}}","</li>");
       }
       json=json.replace(" ","")
       return json;
     }
+
+  function unlister(input) {
+    input=input.replace("<li>","");
+    input = input.replace("</li>","");
+    return input;
+  }
 
   // request 1
   request({
@@ -550,16 +617,27 @@ app.get('/app/months', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2ftemp = dejsoner(body);
+    res2ftemp = unlister(res2ftemp);
   });
-  res.render('app/months', {
-    title: 'Months',
-    data1: {
-      response: JSON.stringify(res1ftemp)
-    },
-    data2: {
-      response: JSON.stringify(res2ftemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1ftemp!=null) && (res2ftemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+  function render() {
+    res.render('app/months', {
+      title: 'Months',
+      data1: {
+        response: res1ftemp
+      },
+      data2: {
+        response: res2ftemp
+      }
+    });
+  }
 });
 
 app.post('/app/months', function(requests,response) {
@@ -590,11 +668,17 @@ app.get('/app/states', function(req,res) {
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"state\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("{\"state\":{\"name\":\"","<li>");
+        json=json.replace("\"}}","</li>");
       }
-      json=json.replace(" ","")
+      json=json.replace(" ","");
+      json=json.replace(",","");
       return json;
+    }
+    function unlister(input) {
+      input=input.replace("<li>","");
+      input=input.replace("</li>","");
+      return input;
     }
 
   // request 1
@@ -611,16 +695,28 @@ app.get('/app/states', function(req,res) {
     method: "GET"
   }, function (error, response, body) {
     res2gtemp = dejsoner(body);
+    res2gtemp = unlister(res2gtemp);
   });
-  res.render('app/states', {
-    title: 'States',
-    data1: {
-      response: JSON.stringify(res1gtemp)
-    },
-    data2: {
-      response: JSON.stringify(res2gtemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1gtemp!=null) && (res2gtemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/states', {
+      title: 'States',
+      data1: {
+        response: res1gtemp
+      },
+      data2: {
+        response: res2gtemp
+      }
+    });
+  }
 });
 
 app.post('/app/states', function(requests,response) {

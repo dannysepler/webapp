@@ -1,7 +1,7 @@
 extends ../app
 
 block content
-	h1 Attributes
+	h1 Months
 	a(href='/app/attributes') Attributes  
 	a(href='/app/cities') Cities  
 	a(href='/app/countries') Countries  
@@ -14,12 +14,12 @@ block content
 	p ##########################
 	p
 	p months.json (GET)
-	p response: #{data1.response}
+	p response: !{data1.response}
 	p
 	p ##########################
 	p
 	p months/60.json (GET)
-	p response: #{data2.response}
+	p response: !{data2.response}
 	p
 	p ##########################
 	p
