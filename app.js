@@ -179,31 +179,12 @@ app.get('/app', function(req,res) {
 });
 
 app.get('/app/attributes', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"attribute\":{\"name\":\"","<li>");
-        json=json.replace("\"}},","</li>");
-      }
-      json=json.replace("\"}}","</li>");
-      json=json.replace(" ","")
-      return json;
-    }
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input=input.replace("</li>","");
-    return input;
-  }
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/attributes.json",
     method: "GET"
   }, function (error, response, body) {
-    res1atemp = dejsoner(body);
+    res1atemp = single_dejsoner(body, "attribute", "name");
   });
   
   // request 2
@@ -211,10 +192,10 @@ app.get('/app/attributes', function(req,res) {
     url: "http://api.eatable.at:3000/attributes/43.json",
     method: "GET"
   }, function (error, response, body) {
-    res2atemp = dejsoner(body);
+    res2atemp = single_dejsoner(body, "attribute", "name");
     res2atemp = unlister(res2atemp);
   });
-  
+
   var interval = setInterval(check,40);
   function check() {
     if ((res1atemp!=null) && (res2atemp!=null)) {
@@ -222,7 +203,6 @@ app.get('/app/attributes', function(req,res) {
       clearInterval(interval);
     }
   }
-
   function render() {
     res.render('app/attributes', {
       title: 'Attributes',
@@ -260,30 +240,12 @@ app.post('/app/attributes/put', function(requests,response) {
 
 
 app.get('/app/cities', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"city\":{\"name\":\"","<li>");
-        json=json.replace("\"}},","</li>");
-      }
-      json=json.replace("\"}}","</li>");
-      json=json.replace(" ","")
-      return json;
-    }
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input=input.replace("</li>","");
-    return input;
-  }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/cities.json",
     method: "GET"
   }, function (error, response, body) {
-    res1btemp = dejsoner(body);
+    res1btemp = single_dejsoner(body, "city", "name");
   });
   
   // request 2
@@ -291,7 +253,7 @@ app.get('/app/cities', function(req,res) {
     url: "http://api.eatable.at:3000/cities/8.json",
     method: "GET"
   }, function (error, response, body) {
-    res2btemp = dejsoner(body);
+    res2btemp = single_dejsoner(body,"city","name");
     res2btemp = unlister(res2btemp);
   });
 
@@ -340,31 +302,12 @@ app.post('/app/cities/put', function(requests,response) {
 });
 
 app.get('/app/countries', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"country\":{\"name\":\"","<li>");
-        json=json.replace("\"}},","</li>");
-      }
-      json=json.replace("\"}}","</li>");
-      json=json.replace(" ","")
-      return json;
-    }
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input=input.replace("</li>","");
-    return input;
-  }
-
-
-    //request 1
+  //request 1
   request({
     url: "http://api.eatable.at:3000/countries.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ctemp = dejsoner(body);
+    res1ctemp = single_dejsoner(body,"country","name");
 
   });
   
@@ -373,7 +316,7 @@ app.get('/app/countries', function(req,res) {
     url: "http://api.eatable.at:3000/countries/24.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ctemp = dejsoner(body);
+    res2ctemp = single_dejsoner(body,"country","name");
     res2ctemp = unlister(res2ctemp);
   });
 
@@ -421,32 +364,12 @@ app.post('/app/countries/put', function(requests,response) {
 });
 
 app.get('/app/days', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"day\":{\"day\":\"","<li>");
-        json=json.replace("\"}},","</li>");
-      }
-      json=json.replace("\"}}","</li>");
-      json=json.replace(" ","")
-      return json;
-    }
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input=input.replace("</li>","");
-    return input;
-  }
-
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/days.json",
     method: "GET"
   }, function (error, response, body) {
-    res1dtemp = dejsoner(body);
+    res1dtemp = single_dejsoner(body,"day","day");
   });
   
   // request 2
@@ -454,7 +377,7 @@ app.get('/app/days', function(req,res) {
     url: "http://api.eatable.at:3000/days/58.json",
     method: "GET"
   }, function (error, response, body) {
-    res2dtemp = dejsoner(body);
+    res2dtemp = single_dejsoner(body,"day","day");
     res2dtemp = unlister(res2dtemp);
   });
 
@@ -502,34 +425,12 @@ app.post('/app/days/put', function(requests,response) {
 });
 
 app.get('/app/foods', function(req,res) {
-    function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"food\":{\"description\":\"","<li>");
-        json=json.replace("\"name\":\""," &clubs; ");
-        json=json.replace("\",","");
-        json=json.replace("\"}},","</li>");
-      }
-      json=json.replace("\"}}","");
-      json=json.replace(" ","")
-      return json;
-    }
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input=input.replace("</li>","");
-    return input;
-  }
-
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/foods.json",
     method: "GET"
   }, function (error, response, body) {
-    res1etemp = dejsoner(body);
+    res1etemp = double_object_dejsoner(body, "food", "description", "name");
   });
   
   // request 2
@@ -537,7 +438,7 @@ app.get('/app/foods', function(req,res) {
     url: "http://api.eatable.at:3000/foods/34.json",
     method: "GET"
   }, function (error, response, body) {
-    res2etemp = dejsoner(body);
+    res2etemp = double_object_dejsoner(body, "food", "description", "name");
     res2etemp = unlister(res2etemp);
   });
 
@@ -585,30 +486,12 @@ app.post('/app/foods/put', function(requests,response) {
 });
 
 app.get('/app/months', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"month\":{\"month\":\"","<li>");
-        json=json.replace("\"}}","</li>");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-  function unlister(input) {
-    input=input.replace("<li>","");
-    input = input.replace("</li>","");
-    return input;
-  }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/months.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ftemp = dejsoner(body);
+    res1ftemp = single_dejsoner(body,"month","month");
   });
   
   // request 2
@@ -616,7 +499,7 @@ app.get('/app/months', function(req,res) {
     url: "http://api.eatable.at:3000/months/60.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ftemp = dejsoner(body);
+    res2ftemp = single_dejsoner(body,"month","month");
     res2ftemp = unlister(res2ftemp);
   });
 
@@ -663,30 +546,12 @@ app.post('/app/months/put', function(requests,response) {
 });
 
 app.get('/app/states', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"state\":{\"name\":\"","<li>");
-        json=json.replace("\"}}","</li>");
-      }
-      json=json.replace(" ","");
-      json=json.replace(",","");
-      return json;
-    }
-    function unlister(input) {
-      input=input.replace("<li>","");
-      input=input.replace("</li>","");
-      return input;
-    }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/states.json",
     method: "GET"
   }, function (error, response, body) {
-    res1gtemp = dejsoner(body);
+    res1gtemp = single_dejsoner(body,"state","name");
   });
   
   // request 2
@@ -694,7 +559,7 @@ app.get('/app/states', function(req,res) {
     url: "http://api.eatable.at:3000/states/10.json",
     method: "GET"
   }, function (error, response, body) {
-    res2gtemp = dejsoner(body);
+    res2gtemp = single_dejsoner(body,"state","name");
     res2gtemp = unlister(res2gtemp);
   });
 
@@ -831,3 +696,40 @@ app.post('/app/streets/put', function(requests,response) {
   response.redirect('/app/streets');
 });
 
+// <---------------------------------->
+//          IMPORTANT METHODS
+// <---------------------------------->
+
+function single_dejsoner(json, name, first) {
+  json=json.replace("[","");
+  json=json.replace("]","");
+  json=json.replace(" ]","");
+  for (var i = 0; i<json.length-1;i++) {
+    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
+    json=json.replace("\"}},","</li>");
+  }
+  json=json.replace("\"}}","</li>");
+  json=json.replace(" ","")
+  return json;
+}
+
+function double_object_dejsoner(json, name, first, second) {
+  json=json.replace("[","");
+  json=json.replace("]","");
+  json=json.replace(" ]","");
+  for (var i = 0; i<json.length-1;i++) {
+    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
+    json=json.replace("\""+second+"\":\""," &clubs; ");
+    json=json.replace("\",","");
+    json=json.replace("\"}},","</li>");
+  }
+  json=json.replace("\"}}","");
+  json=json.replace(" ","")
+  return json;
+}
+
+function unlister(input) {
+  input=input.replace("<li>","");
+  input=input.replace("</li>","");
+  return input;
+}
