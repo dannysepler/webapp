@@ -171,7 +171,7 @@ app.get('/auth/facebook/callback',
 var res1atemp, res2atemp, res1btemp, res2btemp,
     res1ctemp, res2ctemp, res1dtemp, res2dtemp,
     res1etemp, res2etemp, res1ftemp, res2ftemp,
-    res1gtemp, res2gtemp, res1htemp;
+    res1gtemp, res2gtemp, res1htemp, res2htemp;
  // we'll eventually have the app
  // running without these
 
@@ -653,29 +653,62 @@ function dejsoner(json) {
       json=json.replace("]","");
       json=json.replace(" ]","");
       for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"street\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
+        json=json.replace("\"","");
+	json=json.replace("street", "");
+	json=json.replace("name", "");
+	json=json.replace(": ", "");
+	json=json.replace("{ ", "");
+	json=json.replace(" }", "");
       }
-      json=json.replace(" ","");
-      console.log('dejsonified: ' + json);
       return json;
     }
 
- request({
+function singleObjectDejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("\"","");
+        json=json.replace("street", "");
+        json=json.replace("name", "");
+        json=json.replace(": ", "");
+        json=json.replace("{ ", "");
+        json=json.replace(" }", "");
+	json=json.replace(":", "");
+        json=json.replace("{", "");
+        json=json.replace("}", "");
+      }
+      return json;
+    }
+
+
+  // request 1
+  request({
     url: "http://eatable1.apiary.io/streets.json",
     method: "GET"
   }, function (error, response, body) {
-    console.log("Status", res.statusCode);
-    console.log("Headers", JSON.stringify(res.headers));
-    console.log("Response received", body);
     res1htemp = dejsoner(body);
   });
+
+  // request 2
+  request({
+    url: "http://api.eatable.at:3000/streets/67.json",
+    method: "GET"
+  }, function (error, response, body) {
+    res2htemp = singleObjectDejsoner(body);
+  });
+
   res.render('app/streets', {
     title: 'Streets',
     data1: {
       status: res.statusCode,
       headers: JSON.stringify(res.headers),
       response: JSON.stringify(res1htemp)
+    },
+    data2: {
+      status: res.statusCode,
+      headers: JSON.stringify(res.headers),
+      response: JSON.stringify(res2htemp)
     }
   });
 });
@@ -690,3 +723,15 @@ app.post('/app/streets', function(requests,response) {
   });
   response.redirect('/app/streets');
 });
+
+app.post('/app/streets/put', function(requests,response) {
+  request({
+    url: "http://api.eatable.at:3000/streets/67.json",
+    body: "{ \"street\": { \"name\": \""+requests.body.street+"\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "PUT"
+  }, function (error, response, body) {
+  });
+  response.redirect('/app/streets');
+});
+
