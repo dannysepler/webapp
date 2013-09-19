@@ -9,12 +9,11 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var request = require('request');
-//var sys = require('sys');
-//var s = connect.createServer();
 var passport = require('passport');
 var util = require('util');
 
-
+var functions = require('./public/javascripts/functions.js');
+    //this is where all our functions are!
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
@@ -80,9 +79,6 @@ app.post('/signup', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
   });
   response.redirect('/thanks');
 });
@@ -183,25 +179,12 @@ app.get('/app', function(req,res) {
 });
 
 app.get('/app/attributes', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"attribute\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/attributes.json",
     method: "GET"
   }, function (error, response, body) {
-    res1atemp = dejsoner(body);
+    res1atemp=functions.single_dejsoner(body,"attribute","name");
   });
   
   // request 2
@@ -209,25 +192,28 @@ app.get('/app/attributes', function(req,res) {
     url: "http://api.eatable.at:3000/attributes/43.json",
     method: "GET"
   }, function (error, response, body) {
-    res2atemp = dejsoner(body);
+    res2atemp = functions.single_dejsoner(body, "attribute", "name");
+    res2atemp = functions.unlister(res2atemp);
   });
-  //function checkEmpty() {
-    //if(res1atemp && res2atemp) {
-  res.render('app/attributes', {
-    title: 'Attributes',
-    data1: {
-      response: JSON.stringify(res1atemp)
-    },
-    data2: {
-      response: JSON.stringify(res2atemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1atemp!=null) && (res2atemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
-    //}
-    //else {
-      //setTimeout('checkEmpty();',100);
-      //return;
-    //}
-  //}
+  }
+  function render() {
+    res.render('app/attributes', {
+      title: 'Attributes',
+      data1: {
+        response: res1atemp
+      },
+      data2: {
+        response: res2atemp
+      }
+    });
+  }
 });
 
 app.post('/app/attributes', function(requests,response) {
@@ -242,19 +228,6 @@ app.post('/app/attributes', function(requests,response) {
 });
 
 app.post('/app/attributes/put', function(requests,response) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"city\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-
   request({
     url: "http://api.eatable.at:3000/attributes/43.json",
     body: "{ \"attribute\": { \"name\": \""+requests.body.attribute+"\" } }",
@@ -267,25 +240,12 @@ app.post('/app/attributes/put', function(requests,response) {
 
 
 app.get('/app/cities', function(req,res) {
-
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"city\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/cities.json",
     method: "GET"
   }, function (error, response, body) {
-    res1btemp = dejsoner(body);
+    res1btemp = functions.single_dejsoner(body, "city", "name");
   });
   
   // request 2
@@ -293,18 +253,30 @@ app.get('/app/cities', function(req,res) {
     url: "http://api.eatable.at:3000/cities/8.json",
     method: "GET"
   }, function (error, response, body) {
-    res2btemp = dejsoner(body);
-    //callback(render);
+    res2btemp = functions.single_dejsoner(body,"city","name");
+    res2btemp = functions.unlister(res2btemp);
   });
-  res.render('app/cities', {
-    title: 'Cities',
-    data1: {
-      response: JSON.stringify(res1btemp)
-    },
-    data2: {
-      response: JSON.stringify(res2btemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1btemp!=null) && (res2btemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/cities', {
+      title: 'Cities',
+      data1: {
+        response: res1btemp,
+        test: "test"
+      },
+      data2: {
+        response: res2btemp
+      }
+    });
+  }
 });
 
 app.post('/app/cities', function(requests,response) {
@@ -330,24 +302,12 @@ app.post('/app/cities/put', function(requests,response) {
 });
 
 app.get('/app/countries', function(req,res) {
-    function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"country\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-    //request 1
+  //request 1
   request({
     url: "http://api.eatable.at:3000/countries.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ctemp = dejsoner(body);
+    res1ctemp = functions.single_dejsoner(body,"country","name");
 
   });
   
@@ -356,18 +316,29 @@ app.get('/app/countries', function(req,res) {
     url: "http://api.eatable.at:3000/countries/24.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ctemp = dejsoner(body);
+    res2ctemp = functions.single_dejsoner(body,"country","name");
+    res2ctemp = functions.unlister(res2ctemp);
   });
 
-  res.render('app/countries', {
-    title: 'Countries',
-    data1: {
-      response: JSON.stringify(res1ctemp)
-    },
-    data2: {
-      response: JSON.stringify(res2ctemp)
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1ctemp!=null) && (res2ctemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/countries', {
+      title: 'Countries',
+      data1: {
+        response: res1ctemp
+      },
+      data2: {
+        response: res2ctemp
+      }
+    });
+  }
 });
 
 app.post('/app/countries', function(requests,response) {
@@ -377,9 +348,6 @@ app.post('/app/countries', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    //console.log("Status", response.statusCode);
-    //console.log("Headers", JSON.stringify(response.headers));
-    //console.log("Response received", body);
   });
   response.redirect('/app/countries');
 });
@@ -391,33 +359,17 @@ app.post('/app/countries/put', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "PUT"
   }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
   });
   response.redirect('/app/countries');
 });
 
 app.get('/app/days', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"day\":{\"day\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/days.json",
     method: "GET"
   }, function (error, response, body) {
-    res1dtemp = dejsoner(body);
+    res1dtemp = functions.single_dejsoner(body,"day","day");
   });
   
   // request 2
@@ -425,17 +377,29 @@ app.get('/app/days', function(req,res) {
     url: "http://api.eatable.at:3000/days/58.json",
     method: "GET"
   }, function (error, response, body) {
-    res2dtemp = dejsoner(body);
+    res2dtemp = functions.single_dejsoner(body,"day","day");
+    res2dtemp = functions.unlister(res2dtemp);
   });
-  res.render('app/days', {
-    title: 'Days',
-    data1: {
-      response: JSON.stringify(res1dtemp)
-    },
-    data2: {
-      response: JSON.stringify(res2dtemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1dtemp!=null) && (res2dtemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/days', {
+      title: 'Days',
+      data1: {
+        response: res1dtemp
+      },
+      data2: {
+        response: res2dtemp
+      }
+    });
+  }
 });
 
 app.post('/app/days', function(requests,response) {
@@ -461,27 +425,12 @@ app.post('/app/days/put', function(requests,response) {
 });
 
 app.get('/app/foods', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"food\":{\"description\":\"","");
-        json=json.replace("\"name\":\""," -- ");
-        json=json.replace("\",","");
-        json=json.replace("\"}}","");
-      }
-      //json=json.replace(" ","")
-      return json;
-    }
-
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/foods.json",
     method: "GET"
   }, function (error, response, body) {
-    res1etemp = dejsoner(body);
+    res1etemp = functions.double_dejsoner(body, "food", "description", "name");
   });
   
   // request 2
@@ -489,17 +438,29 @@ app.get('/app/foods', function(req,res) {
     url: "http://api.eatable.at:3000/foods/34.json",
     method: "GET"
   }, function (error, response, body) {
-    res2etemp = dejsoner(body);
+    res2etemp = functions.double_dejsoner(body, "food", "description", "name");
+    res2etemp = functions.unlister(res2etemp);
   });
-  res.render('app/foods', {
-    title: 'Foods',
-    data1: {
-      response: JSON.stringify(res1etemp)
-    },
-    data2: {
-      response: JSON.stringify(res2etemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1etemp!=null) && (res2etemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/foods', {
+      title: 'Foods',
+      data1: {
+        response: res1etemp
+      },
+      data2: {
+        response: res2etemp
+      }
+    });
+  }
 });
 
 app.post('/app/foods', function(requests,response) {
@@ -525,24 +486,12 @@ app.post('/app/foods/put', function(requests,response) {
 });
 
 app.get('/app/months', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"month\":{\"month\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/months.json",
     method: "GET"
   }, function (error, response, body) {
-    res1ftemp = dejsoner(body);
+    res1ftemp = functions.single_dejsoner(body,"month","month");
   });
   
   // request 2
@@ -550,17 +499,28 @@ app.get('/app/months', function(req,res) {
     url: "http://api.eatable.at:3000/months/60.json",
     method: "GET"
   }, function (error, response, body) {
-    res2ftemp = dejsoner(body);
+    res2ftemp = functions.single_dejsoner(body,"month","month");
+    res2ftemp = functions.unlister(res2ftemp);
   });
-  res.render('app/months', {
-    title: 'Months',
-    data1: {
-      response: JSON.stringify(res1ftemp)
-    },
-    data2: {
-      response: JSON.stringify(res2ftemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1ftemp!=null) && (res2ftemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+  function render() {
+    res.render('app/months', {
+      title: 'Months',
+      data1: {
+        response: res1ftemp
+      },
+      data2: {
+        response: res2ftemp
+      }
+    });
+  }
 });
 
 app.post('/app/months', function(requests,response) {
@@ -586,24 +546,12 @@ app.post('/app/months/put', function(requests,response) {
 });
 
 app.get('/app/states', function(req,res) {
-  function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("{\"state\":{\"name\":\""," ");
-        json=json.replace("\"}}","");
-      }
-      json=json.replace(" ","")
-      return json;
-    }
-
   // request 1
   request({
     url: "http://api.eatable.at:3000/states.json",
     method: "GET"
   }, function (error, response, body) {
-    res1gtemp = dejsoner(body);
+    res1gtemp = functions.single_dejsoner(body,"state","name");
   });
   
   // request 2
@@ -611,17 +559,29 @@ app.get('/app/states', function(req,res) {
     url: "http://api.eatable.at:3000/states/10.json",
     method: "GET"
   }, function (error, response, body) {
-    res2gtemp = dejsoner(body);
+    res2gtemp = functions.single_dejsoner(body,"state","name");
+    res2gtemp = functions.unlister(res2gtemp);
   });
-  res.render('app/states', {
-    title: 'States',
-    data1: {
-      response: JSON.stringify(res1gtemp)
-    },
-    data2: {
-      response: JSON.stringify(res2gtemp)
+
+  var interval = setInterval(check,40);
+  function check() {
+    if ((res1gtemp!=null) && (res2gtemp!=null)) {
+      render();
+      clearInterval(interval);
     }
-  });
+  }
+
+  function render() {
+    res.render('app/states', {
+      title: 'States',
+      data1: {
+        response: res1gtemp
+      },
+      data2: {
+        response: res2gtemp
+      }
+    });
+  }
 });
 
 app.post('/app/states', function(requests,response) {
@@ -733,6 +693,7 @@ app.post('/app/streets/put', function(requests,response) {
   }, function (error, response, body) {
   });
   response.redirect('/app/streets');
+<<<<<<< HEAD
 });
 
 // USERS
@@ -830,3 +791,6 @@ app.post('/app/users/put', function(requests,response) {
   response.redirect('/app/users');
 });
 
+=======
+});
+>>>>>>> a55fb0df801c3b4bd6a4752544a76a8912bdc589
