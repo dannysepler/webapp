@@ -171,7 +171,8 @@ app.get('/auth/facebook/callback',
 var res1atemp, res2atemp, res1btemp, res2btemp,
     res1ctemp, res2ctemp, res1dtemp, res2dtemp,
     res1etemp, res2etemp, res1ftemp, res2ftemp,
-    res1gtemp, res2gtemp, res1htemp, res2htemp;
+    res1gtemp, res2gtemp, res1htemp, res2htemp,
+    res1itemp, res2itemp;
  // we'll eventually have the app
  // running without these
 
@@ -681,7 +682,6 @@ function singleObjectDejsoner(json) {
       return json;
     }
 
-
   // request 1
   request({
     url: "http://eatable1.apiary.io/streets.json",
@@ -733,5 +733,100 @@ app.post('/app/streets/put', function(requests,response) {
   }, function (error, response, body) {
   });
   response.redirect('/app/streets');
+});
+
+// USERS
+app.get('/app/users', function(req,res) {
+
+function dejsoner(json) {
+      if(!json){
+	return json;
+      }
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("\"","");
+        json=json.replace("user", "");
+        json=json.replace("name", "");
+        json=json.replace(": ", "");
+        json=json.replace("{ ", "");
+        json=json.replace(" }", "");
+      }
+      return json;
+    }
+
+function singleObjectDejsoner(json) {
+      if (!json){
+	return json;
+      }
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("\"","");
+        json=json.replace("street", "");
+        json=json.replace("name", "");
+        json=json.replace(": ", "");
+        json=json.replace("{ ", "");
+        json=json.replace(" }", "");
+        json=json.replace(":", "");
+        json=json.replace("{", "");
+        json=json.replace("}", "");
+      }
+      return json;
+    }
+
+  // request 1
+  request({
+    url: "http://eatable1.apiary.io/users.json",
+    method: "GET"
+  }, function (error, response, body) {
+    res1itemp = dejsoner(body);
+  });
+
+  // request 2
+  request({
+    url: "http://api.eatable.at:3000/users/67.json",
+    method: "GET"
+  }, function (error, response, body) {
+    res2itemp = singleObjectDejsoner(body);
+  });
+
+  res.render('app/users', {
+    title: 'Users',
+    data1: {
+      status: res.statusCode,
+      headers: JSON.stringify(res.headers),
+      response: JSON.stringify(res1itemp)
+    },
+    data2: {
+      status: res.statusCode,
+      headers: JSON.stringify(res.headers),
+      response: JSON.stringify(res2itemp)
+    }
+  });
+});
+
+app.post('/app/users', function(requests,response) {
+  request({
+    url: "http://api.eatable.at:3000/users.json",
+    body: "{ \"user\": { \"name\": \""+requests.body.user+"\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+  });
+  response.redirect('/app/users');
+});
+
+app.post('/app/users/put', function(requests,response) {
+  request({
+    url: "http://api.eatable.at:3000/users/67.json",
+    body: "{ \"user\": { \"name\": \""+requests.body.user+"\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "PUT"
+  }, function (error, response, body) {
+  });
+  response.redirect('/app/users');
 });
 
