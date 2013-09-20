@@ -64,25 +64,6 @@ app.get('/', function(req, res){
   });
 });
 
-app.get('/signup', function(req, res) {
-  res.render('signup', {
-    title: 'Sign-up'
-  });
-});
-
-app.post('/signup', function(requests,response) {
-  //note that it's called requests instead of request. this is
-  //not to confuse it with the node 'request' library
-  request({
-    url: "http://api.eatable.at:3000/users.json",
-    body: "{ \"user\": { \"email\": \""+requests.body.name+"\", \"provider\": \"webapp\", \"uid\": \"37397\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/thanks');
-});
-
 app.get('/thanks', function(req, res){
   res.render('thanks', {
     title: 'Thanks!'
@@ -93,71 +74,7 @@ app.get('/thanks', function(req, res){
               LOGGING IN AND OUT
    <------------------------------------>*/
 
-// Google
-
-/*
-passport.use(new GoogleStrategy({
-    clientID: "371573734026.apps.googleusercontent.com",
-    clientSecret: "3q9pFap6DnUiC0J3CaVJKrqW",
-    callbackURL: "http://api.eatable.at:3000/auth/google_oauth2/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      
-      // To keep the example simple, the user's Google profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Google account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
-));
-
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                                            'https://www.googleapis.com/auth/userinfo.email']}),
-  function(req, res){
-    // The request will be redirected to Google for authentication, so this
-    // function will not be called.
-});
-
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-}
-
-// Facebook
-
-passport.use(new FacebookStrategy({
-    clientID: "165014317023090",
-    clientSecret: "63a670889e2de94de1c867f459d3d196",
-    callbackURL: "http://api.eatable.at:3000/auth/facebook_oauth2/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    //User.findOrCreate(..., function(err, user) {
-    User.findOrCreate(accessToken, refreshToken, profile, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-  }
-));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-
-app.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
-*/
+// check functions.js page
 
 /* <------------------------------->
           CHECKING OUT APIs
@@ -701,3 +618,41 @@ app.post('/app/users/put', function(requests,response) {
   });
   response.redirect('/app/users');
 });
+
+
+
+/*    _____-------______-----_____-----___
+            Experiment page's stuff
+      -----_______------_____-----_____--- */
+
+var postsamp;
+app.get('/experiments', function(req, res) {
+  postsamp = requests.apiary_post("foods/search/venue",54,"food","id");
+  console.log(postsamp);
+
+  res.render('experiments', {
+    title: 'Experiments',
+    data: {
+      text: postsamp
+    }
+  });
+});
+
+/*
+app.post('/experiments', function(req,res) {
+  request({
+    url: "http://eatable.apiary.io/foods/search/venue.json",
+    body: "{ \"food\": { \"id\": \"54\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    postsamp = dejsoner(body);
+  });
+  res.render('app/experiments', {
+    title: 'Experiments',
+    data1: {
+      status: postsamp
+    }
+  });
+});
+*/
