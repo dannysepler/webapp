@@ -609,21 +609,6 @@ app.post('/app/states/put', function(requests,response) {
 // STREETS
 app.get('/app/streets', function(req,res) {
 
-function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("\"","");
-	json=json.replace("street", "");
-	json=json.replace("name", "");
-	json=json.replace(": ", "");
-	json=json.replace("{ ", "");
-	json=json.replace(" }", "");
-      }
-      return json;
-    }
-
 function singleObjectDejsoner(json) {
       json=json.replace("[","");
       json=json.replace("]","");
@@ -647,7 +632,7 @@ function singleObjectDejsoner(json) {
     url: "http://eatable1.apiary.io/streets.json",
     method: "GET"
   }, function (error, response, body) {
-    res1htemp = dejsoner(body);
+    res1htemp = functions.single_dejsoner(body, "street", "name");
   });
 
   // request 2
@@ -655,7 +640,8 @@ function singleObjectDejsoner(json) {
     url: "http://api.eatable.at:3000/streets/67.json",
     method: "GET"
   }, function (error, response, body) {
-    res2htemp = singleObjectDejsoner(body);
+    res2htemp = functions.single_dejsoner(body, "street", "name");
+    res2htemp = functions.unlister(reshtemp);
   });
 
   res.render('app/streets', {
@@ -692,8 +678,7 @@ app.post('/app/streets/put', function(requests,response) {
     method: "PUT"
   }, function (error, response, body) {
   });
-  response.redirect('/app/streets');
-<<<<<<< HEAD
+  response.redirect('/app/streets');D
 });
 
 // USERS
@@ -743,7 +728,7 @@ function singleObjectDejsoner(json) {
     url: "http://eatable1.apiary.io/users.json",
     method: "GET"
   }, function (error, response, body) {
-    res1itemp = dejsoner(body);
+    res1itemp = functions.single_dejsoner(body, "street", "name");
   });
 
   // request 2
@@ -769,7 +754,7 @@ function singleObjectDejsoner(json) {
   });
 });
 
-app.post('/app/users', function(requests,response) {
+ app.post('/app/users', function(requests,response) {
   request({
     url: "http://api.eatable.at:3000/users.json",
     body: "{ \"user\": { \"name\": \""+requests.body.user+"\" } }",
@@ -780,7 +765,7 @@ app.post('/app/users', function(requests,response) {
   response.redirect('/app/users');
 });
 
-app.post('/app/users/put', function(requests,response) {
+ app.post('/app/users/put', function(requests,response) {
   request({
     url: "http://api.eatable.at:3000/users/67.json",
     body: "{ \"user\": { \"name\": \""+requests.body.user+"\" } }",
@@ -790,7 +775,3 @@ app.post('/app/users/put', function(requests,response) {
   });
   response.redirect('/app/users');
 });
-
-=======
-});
->>>>>>> a55fb0df801c3b4bd6a4752544a76a8912bdc589
