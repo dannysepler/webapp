@@ -13,6 +13,7 @@ var passport = require('passport');
 var util = require('util');
 
 var functions = require('./public/javascripts/functions.js');
+var requests = require('./public/javascripts/requests.js');
     //this is where all our functions are!
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -93,71 +94,7 @@ app.get('/thanks', function(req, res){
               LOGGING IN AND OUT
    <------------------------------------>*/
 
-// Google
-
-/*
-passport.use(new GoogleStrategy({
-    clientID: "371573734026.apps.googleusercontent.com",
-    clientSecret: "3q9pFap6DnUiC0J3CaVJKrqW",
-    callbackURL: "http://api.eatable.at:3000/auth/google_oauth2/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      
-      // To keep the example simple, the user's Google profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Google account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
-));
-
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                                            'https://www.googleapis.com/auth/userinfo.email']}),
-  function(req, res){
-    // The request will be redirected to Google for authentication, so this
-    // function will not be called.
-});
-
-app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
-});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-}
-
-// Facebook
-
-passport.use(new FacebookStrategy({
-    clientID: "165014317023090",
-    clientSecret: "63a670889e2de94de1c867f459d3d196",
-    callbackURL: "http://api.eatable.at:3000/auth/facebook_oauth2/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    //User.findOrCreate(..., function(err, user) {
-    User.findOrCreate(accessToken, refreshToken, profile, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-  }
-));
-
-app.get('/auth/facebook', passport.authenticate('facebook'));
-
-app.get('/auth/facebook/callback', 
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/login' }));
-*/
+// check functions.js page
 
 /* <------------------------------->
           CHECKING OUT APIs
@@ -180,12 +117,15 @@ app.get('/app', function(req,res) {
 
 app.get('/app/attributes', function(req,res) {
   // request 1
+
   request({
     url: "http://api.eatable.at:3000/attributes.json",
     method: "GET"
   }, function (error, response, body) {
     res1atemp=functions.single_dejsoner(body,"attribute","name");
   });
+  //res1atemp=requests.get_request('attribtes','attribute','name',res);
+  //requests.get_request();
   
   // request 2
   request({
@@ -216,26 +156,12 @@ app.get('/app/attributes', function(req,res) {
   }
 });
 
-app.post('/app/attributes', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/attributes.json",
-    body: "{ \"attribute\": { \"name\": \""+requests.body.attribute+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app');
+app.post('/app/attributes', function(req,response) {
+  requests.post_request('attributes','attribute','name', req.body.attribute,response);
 });
 
-app.post('/app/attributes/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/attributes/43.json",
-    body: "{ \"attribute\": { \"name\": \""+requests.body.attribute+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app');
+app.post('/app/attributes/put', function(req,response) {
+  requests.put_request('attributes', 43,'attribute','name', req.body.attribute,response);
 });
 
 
@@ -279,26 +205,12 @@ app.get('/app/cities', function(req,res) {
   }
 });
 
-app.post('/app/cities', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/cities.json",
-    body: "{ \"city\": { \"name\": \""+requests.body.city+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/cities');
+app.post('/app/cities', function(req,response) {
+  requests.post_request('cities','city','name', req.body.city,response);
 });
 
-app.post('/app/cities/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/cities/8.json",
-    body: "{ \"city\": { \"name\": \""+requests.body.city+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/cities');
+app.post('/app/cities/put', function(req,response) {
+  requests.put_request('cities', 8,'city','name', req.body.city,response);
 });
 
 app.get('/app/countries', function(req,res) {
@@ -341,26 +253,12 @@ app.get('/app/countries', function(req,res) {
   }
 });
 
-app.post('/app/countries', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/countries.json",
-    body: "{ \"country\": { \"name\": \""+requests.body.country+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/countries');
+app.post('/app/countries', function(req,response) {
+  requests.post_request('countries','country','name', req.body.country,response);
 });
 
-app.post('/app/countries/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/countries/24.json",
-    body: "{ \"country\": { \"name\": \""+requests.body.country+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/countries');
+app.post('/app/countries/put', function(req,response) {
+  requests.put_request('countries', 24,'country','name', req.body.country,response);
 });
 
 app.get('/app/days', function(req,res) {
@@ -402,26 +300,12 @@ app.get('/app/days', function(req,res) {
   }
 });
 
-app.post('/app/days', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/days.json",
-    body: "{ \"day\": { \"day\": \""+requests.body.day+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/days');
+app.post('/app/days', function(req,response) {
+  requests.post_request('days','day','day',req.body.day,response);
 });
 
-app.post('/app/days/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/days/58.json",
-    body: "{ \"day\": { \"day\": \""+requests.body.day+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/days');
+app.post('/app/days/put', function(req,response) {
+  requests.put_request('days', 58,'day','day', req.body.day,response);
 });
 
 app.get('/app/foods', function(req,res) {
@@ -474,15 +358,8 @@ app.post('/app/foods', function(requests,response) {
   response.redirect('/app/foods');
 });
 
-app.post('/app/foods/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/foods/34.json",
-    body: "{ \"food\": { \"description\": \""+requests.body.description+"\",\"name\": \""+requests.body.food+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/foods');
+app.post('/app/foods/put', function(req,response) {
+  requests.post_request('foods','food','description', req.body.description,response);
 });
 
 app.get('/app/months', function(req,res) {
@@ -523,26 +400,12 @@ app.get('/app/months', function(req,res) {
   }
 });
 
-app.post('/app/months', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/months.json",
-    body: "{ \"month\": { \"month\": \""+requests.body.month+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/months');
+app.post('/app/months', function(req,response) {
+  requests.post_request('months','month','month', req.body.month,response);
 });
 
-app.post('/app/months/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/months/60.json",
-    body: "{ \"month\": { \"month\": \""+requests.body.month+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/months');
+app.post('/app/months/put', function(req,response) {
+  requests.put_request('months', 60,'month','month', req.body.month,response);
 });
 
 app.get('/app/states', function(req,res) {
@@ -584,30 +447,31 @@ app.get('/app/states', function(req,res) {
   }
 });
 
-app.post('/app/states', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/states.json",
-    body: "{ \"state\": { \"name\": \""+requests.body.state+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/states');
+app.post('/app/states', function(req,response) {
+  requests.post_request('states','state','name', req.body.state,response);
 });
 
-app.post('/app/states/put', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:3000/states/10.json",
-    body: "{ \"state\": { \"name\": \""+requests.body.state+"\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "PUT"
-  }, function (error, response, body) {
-  });
-  response.redirect('/app/states');
+app.post('/app/states/put', function(req,response) {
+  requests.put_request('states', 10,'state','name', req.body.state,response);
 });
 
 // STREETS
 app.get('/app/streets', function(req,res) {
+
+function dejsoner(json) {
+      json=json.replace("[","");
+      json=json.replace("]","");
+      json=json.replace(" ]","");
+      for (var i = 0; i<json.length-1;i++) {
+        json=json.replace("\"","");
+	json=json.replace("street", "");
+	json=json.replace("name", "");
+	json=json.replace(": ", "");
+	json=json.replace("{ ", "");
+	json=json.replace(" }", "");
+      }
+      return json;
+    }
 
 function singleObjectDejsoner(json) {
       json=json.replace("[","");
@@ -678,7 +542,7 @@ app.post('/app/streets/put', function(requests,response) {
     method: "PUT"
   }, function (error, response, body) {
   });
-  response.redirect('/app/streets');D
+  response.redirect('/app/streets');
 });
 
 // USERS
@@ -728,7 +592,7 @@ function singleObjectDejsoner(json) {
     url: "http://eatable1.apiary.io/users.json",
     method: "GET"
   }, function (error, response, body) {
-    res1itemp = functions.single_dejsoner(body, "street", "name");
+    res1itemp = dejsoner(body);
   });
 
   // request 2
@@ -775,3 +639,41 @@ function singleObjectDejsoner(json) {
   });
   response.redirect('/app/users');
 });
+
+
+
+/*    _____-------______-----_____-----___
+            Experiment page's stuff
+      -----_______------_____-----_____--- */
+
+var postsamp;
+app.get('/experiments', function(req, res) {
+  postsamp = requests.apiary_post("foods/search/venue",54,"food","id");
+  console.log(postsamp);
+
+  res.render('experiments', {
+    title: 'Experiments',
+    data: {
+      text: postsamp
+    }
+  });
+});
+
+/*
+app.post('/experiments', function(req,res) {
+  request({
+    url: "http://eatable.apiary.io/foods/search/venue.json",
+    body: "{ \"food\": { \"id\": \"54\" } }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    postsamp = dejsoner(body);
+  });
+  res.render('app/experiments', {
+    title: 'Experiments',
+    data1: {
+      status: postsamp
+    }
+  });
+});
+*/
