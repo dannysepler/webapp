@@ -40,18 +40,21 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    //console.log("Status", response.statusCode);
-    //console.log("Headers", JSON.stringify(response.headers));
-    //console.log("Response received", body);
-    console.log(body);
+    var newbod = functions.grab_req_v1p1(body, 1);
+    console.log(newbod);
+    var name1  = functions.grab_name_v1p1(newbod);
+    var newbod = functions.grab_desc_v1p1(newbod);
+
     res.render(renlink, {
       title: 'Title',
       data: {
-        text: body
+        text: newbod,
+        header: name1
       }
     });
   });
 }
+
 /*	~~~~~~~~~~~~~~~~
 		THE NAMES
 	~~~~~~~~~~~~~~~~ */

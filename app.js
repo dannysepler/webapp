@@ -649,13 +649,6 @@ function singleObjectDejsoner(json) {
 var postsamp;
 app.get('/experiments', function(req, res) {
   requests.apiary_post("foods/search/venue",54,"food","id",true,'experiments',res);
-  //console.log(postsamp);
-  /*res.render('experiments', {
-    title: 'Experiments',
-    data: {
-      text: postsamp
-    }
-  });*/
 });
 
 /*

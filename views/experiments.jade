@@ -2,10 +2,39 @@ extends layout
 append head
 	link(rel='stylesheet', href='/stylesheets/bootstrap.css')
 
-
 block content
 	.hero-unit
+		h1 !{data.header}
+		p !{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
 		h1 Food name
-		p Text #{data.text}
+		p #{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
+		h1 Food name
+		p #{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
+		h1 Food name
+		p #{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
+		h1 Food name
+		p #{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
+		h1 Food name
+		p #{data.text}
+		p
+			a(class="btn btn-primary btn-large") Take me there!
+	.hero-unit
+		h1 Food name
+		p #{data.text}
 		p
 			a(class="btn btn-primary btn-large") Take me there!
