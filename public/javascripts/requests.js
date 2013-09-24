@@ -33,7 +33,7 @@ var put_request = function(link,number,first,second,element,response) {
   	response.redirect('/app');
 }
 
-var apiary_post = function(link,number,first,second){
+var apiary_post = function(link,number,first,second,renbool,renlink,res){
   request({
     url: "http://eatable.apiary.io/"+link+".json",
     body: "{ \""+first+"\": { \""+second+"\": \""+number+"\" } }",
@@ -43,12 +43,14 @@ var apiary_post = function(link,number,first,second){
     //console.log("Status", response.statusCode);
     //console.log("Headers", JSON.stringify(response.headers));
     //console.log("Response received", body);
-    postsamp= body;
-    //console.log(postsamp);
+    console.log(body);
+    res.render(renlink, {
+      title: 'Title',
+      data: {
+        text: body
+      }
+    });
   });
-  //console.log(postsamp);
-  var temp = postsamp;
-  return temp;
 }
 /*	~~~~~~~~~~~~~~~~
 		THE NAMES
