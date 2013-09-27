@@ -33,7 +33,7 @@ function unlister(input) {
 }
 
 var grab_req_v1p1 = function(json, time_around) {
-  var retval = json.split("\"venue\"",2).join();
+  var retval = json.split("\"venue\"",time_around).join();
   return retval;
 }
 
@@ -41,6 +41,7 @@ function grab_name_v1p1(json) {
   var retval = json;
   retval = retval.substr(65);
   retval = retval.split("\"",1).join();
+  retval = "<div class= \"hero-unit\"><h1>" + retval + "</h1>";
   return retval;
 }
 
@@ -60,7 +61,6 @@ var grab_desc_v1p1 = function(json) {
   parse("country",11);
   parse("zipcode",11);
   
-
   function parse(searcher,adder) {
     n = json.search(searcher);
     temp = json.substr(n+adder);
@@ -77,12 +77,14 @@ var grab_desc_v1p1 = function(json) {
     }
   }
   retval = retval.split("}",1).join();
-  retval += "</li>";
+  retval = "<p>" + retval + "</li></p>";
+  retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
+  retval+="</div>";
   return retval;
 }
 
 /*  ~~~~~~~~~~~~~~~~~~~~~~~~
-      HERE ARE THE NAMES!
+      HERE ARE THE NAMES
     ~~~~~~~~~~~~~~~~~~~~~~~~    */
 
 module.exports.single_dejsoner = single_dejsoner;

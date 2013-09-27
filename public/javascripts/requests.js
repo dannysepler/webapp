@@ -40,10 +40,20 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    var newbod = functions.grab_req_v1p1(body, 1);
-    console.log(newbod);
-    var name1  = functions.grab_name_v1p1(newbod);
-    var newbod = functions.grab_desc_v1p1(newbod);
+    var newbod, name1;
+    
+    // I'm going to want to create a function to figure out how
+    // many venues there are
+
+    // Then i'm gonna loop the following statements for each
+    // venue, adding on the text to what I had from the previous loop
+
+    newbod = functions.grab_req_v1p1(body, 2);
+    name1  = functions.grab_name_v1p1(newbod);
+    newbod = functions.grab_desc_v1p1(newbod);
+    name1 += newbod;
+
+
 
     res.render(renlink, {
       title: 'Title',
