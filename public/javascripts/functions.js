@@ -34,6 +34,7 @@ function unlister(input) {
 
 var grab_req_v1p1 = function(json, time_around) {
   var retval = json.split("\"venue\"",time_around).join();
+  console.log(retval);
   return retval;
 }
 
@@ -83,6 +84,10 @@ var grab_desc_v1p1 = function(json) {
   return retval;
 }
 
+var how_many_v1p1 = function(string, substring) {
+  var result = string.match( RegExp( '(' + substring + ')', 'g' ) ); 
+  return result ? result.length : 0;
+}
 /*  ~~~~~~~~~~~~~~~~~~~~~~~~
       HERE ARE THE NAMES
     ~~~~~~~~~~~~~~~~~~~~~~~~    */
@@ -93,3 +98,4 @@ module.exports.unlister        = unlister;
 module.exports.grab_req_v1p1   = grab_req_v1p1;
 module.exports.grab_name_v1p1  = grab_name_v1p1;
 module.exports.grab_desc_v1p1  = grab_desc_v1p1;
+module.exports.how_many_v1p1   = how_many_v1p1;

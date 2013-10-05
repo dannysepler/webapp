@@ -9,17 +9,25 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var request = require('request');
-var passport = require('passport');
 var util = require('util');
+
+
+var connect = require('connect'),
+  flash = require('connect-flash');
 
 var functions = require('./public/javascripts/functions.js');
 var requests = require('./public/javascripts/requests.js');
     //this is where all our functions are!
 
+//PASSPORT VARIABLIES
+var passport = require('passport')
+  , OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
 var FacebookStrategy = require('passport-facebook').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
@@ -41,6 +49,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.configure('development', function(){
   app.use(express.errorHandler());
   app.locals.pretty = true;
+  app.use(express.cookieParser('keyboard cat'));
+  app.use(express.session({ cookie: { maxAge: 60000 }}));
+  app.use(flash());
 });
 // development only
 if ('development' == app.get('env')) {
@@ -94,7 +105,105 @@ app.get('/thanks', function(req, res){
               LOGGING IN AND OUT
    <------------------------------------>*/
 
-// check functions.js page
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user.verifyPassword(password)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+
+passport.use(new GoogleStrategy({
+    clientID: "371573734026.apps.googleusercontent.com",
+    clientSecret: "3q9pFap6DnUiC0J3CaVJKrqW",
+    callbackURL: "http://localhost:3000/auth/google"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      return done(null, profile);
+    });
+  }
+));
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                                            'https://www.googleapis.com/auth/userinfo.email'],
+                                    successRedirect: '/app/attributs',
+                                    failureRedirect: '/app'}),
+  function(req, res){
+    // The request will be redirected to Google for authentication, so this
+    // function will not be called.
+});
+
+app.get('/account', ensureAuthenticated, function(req, res){
+  res.render('account', { user: req.user });
+});
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/login');
+}
+
+app.post('/post',
+  passport.authenticate('local', { successRedirect: '/app/attributs',
+                                   failureRedirect: '/app'}),
+                                   //successFlash: "Welcome!",
+                                   //failureFlash: "Invalid credentials" }),
+  function(req,res) {
+    res.redirect('/app');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* <------------------------------->
           CHECKING OUT APIs
