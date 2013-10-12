@@ -119,7 +119,7 @@ passport.use(new LocalStrategy(
 passport.use(new GoogleStrategy({
     clientID: "371573734026.apps.googleusercontent.com",
     clientSecret: "3q9pFap6DnUiC0J3CaVJKrqW",
-    callbackURL: "http://localhost:3000/auth/google"
+    callbackURL: "http://api.eatable.at:3000/auth/google"
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -154,7 +154,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.post('/post',
-  passport.authenticate('local', { successRedirect: '/app/attributs',
+  passport.authenticate('local', { successRedirect: '/app/attributes',
                                    failureRedirect: '/app'}),
                                    //successFlash: "Welcome!",
                                    //failureFlash: "Invalid credentials" }),
@@ -757,24 +757,5 @@ function singleObjectDejsoner(json) {
 
 var postsamp;
 app.get('/experiments', function(req, res) {
-  requests.apiary_post("foods/search/venue",54,"food","id",true,'experiments',res);
+  requests.vert_carousel_render("foods/search/venue",54,"food","id",true,'experiments',res);
 });
-
-/*
-app.post('/experiments', function(req,res) {
-  request({
-    url: "http://eatable.apiary.io/foods/search/venue.json",
-    body: "{ \"food\": { \"id\": \"54\" } }",
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-    postsamp = dejsoner(body);
-  });
-  res.render('app/experiments', {
-    title: 'Experiments',
-    data1: {
-      status: postsamp
-    }
-  });
-});
-*/
