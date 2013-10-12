@@ -86,9 +86,9 @@ function parse(searcher,adder,json,retval) {
     temp = json.substr(n+adder);
     temp = temp.split("\",",1).join();
     if (searcher=="img_url") {
-      retval += "<img class=\"fade\" src=\"";
+      retval += "<img src=\"";
       retval = retval.concat(temp);
-      retval += "\" height=\"150px\", width=\"250px\" style=\"opacity:0.5\" \/>";
+      retval += "\" height=\"150px\", width=\"250px\" \/>";
     }
     else if (searcher=="street_number") {
       retval += "<li>";
@@ -131,12 +131,40 @@ function stream_name(json) {
 function stream_desc(json) {
   var temp, n;
   var retval  = "";
-  retval +=parse("img_url",11,json,retval);
+  retval +=stream_parse("img_url",11,json,retval);
 
   retval = retval.split("}",1).join();
   retval = "<p>" + retval + "</li></p>";
   return retval;
 }
+
+function stream_parse(searcher,adder,json,retval) {
+    var n = json.search(searcher);
+    temp = json.substr(n+adder);
+    temp = temp.split("\",",1).join();
+    if (searcher=="img_url") {
+      retval += "<img class=\"fade\" src=\"";
+      retval = retval.concat(temp);
+      retval += "\" height=\"150px\", width=\"250px\" style=\"opacity:0.5;cursor:pointer\" \/>";
+    }
+    else if (searcher=="street_number") {
+      retval += "<li>";
+      retval = retval.concat(temp);
+      retval += " ";
+    }
+    else if (searcher=="street\"") {
+      retval = retval.concat(temp);
+      retval += "</li>";
+    }
+    else {
+      retval += "<li>";
+      retval = retval.concat(temp);
+      retval += "</li>";
+    }
+
+  return retval;
+}
+
 
 /*  ~~~~~~~~~~~~~~~~~~~~~~~~
       HERE ARE THE NAMES
@@ -158,3 +186,4 @@ module.exports.parse           = parse;
 module.exports.vert_carousel   = vert_carousel;
 module.exports.stream_name     = stream_name;
 module.exports.stream_desc     = stream_desc;
+module.exports.stream_parse    = stream_parse;

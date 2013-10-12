@@ -764,5 +764,5 @@ app.get('/experiments', function(req, res) {
       -----_______------_____-----_____--- */
 
 app.get('/ui', function(req, res) {
-  requests.vert_carousel("foods/search/venue",54,"food","id",true,'experiments',res);
+  requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
 });

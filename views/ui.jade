@@ -1,0 +1,10 @@
+extends layout
+append head
+	link(rel="stylesheet", href="/stylesheets/ui/ui.css")
+	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
+
+block content
+	#wrapper(style="height:500px;width:550px;margin-left:300px;margin-top:20px;")
+		#sticker(style="height:500px;width:550px;background:black;")
+	div(style="margin-top:-540px;")
+		!{data.header}

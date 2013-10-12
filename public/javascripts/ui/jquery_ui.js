@@ -7,4 +7,6 @@ $(document).ready(function(){
       $(this).stop().fadeTo('fast', 0.5);
     }
   );
+
+  $("#sticker").sticky({ topSpacing:0 });
 });
