@@ -86,9 +86,9 @@ function parse(searcher,adder,json,retval) {
     temp = json.substr(n+adder);
     temp = temp.split("\",",1).join();
     if (searcher=="img_url") {
-      retval += "<img src=\"";
+      retval += "<img class=\"fade\" src=\"";
       retval = retval.concat(temp);
-      retval += "\" height=\"150px\", width=\"250px\" \/>";
+      retval += "\" height=\"150px\", width=\"250px\" style=\"opacity:0.5\" \/>";
     }
     else if (searcher=="street_number") {
       retval += "<li>";
@@ -142,14 +142,19 @@ function stream_desc(json) {
       HERE ARE THE NAMES
     ~~~~~~~~~~~~~~~~~~~~~~~~    */
 
+// VERSION 1
 module.exports.single_dejsoner = single_dejsoner;
 module.exports.double_dejsoner = double_dejsoner;
 module.exports.unlister        = unlister;
+
+// VERSION 2
 module.exports.grab_req_v1p1   = grab_req_v1p1;
 module.exports.grab_name_v1p1  = grab_name_v1p1;
 module.exports.grab_desc_v1p1  = grab_desc_v1p1;
 module.exports.how_many_v1p1   = how_many_v1p1;
 module.exports.parse           = parse;
+
+// VERSION 3
 module.exports.vert_carousel   = vert_carousel;
 module.exports.stream_name     = stream_name;
 module.exports.stream_desc     = stream_desc;
