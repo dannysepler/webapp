@@ -755,7 +755,14 @@ function singleObjectDejsoner(json) {
             Experiment page's stuff
       -----_______------_____-----_____--- */
 
-var postsamp;
 app.get('/experiments', function(req, res) {
-  requests.vert_carousel_render("foods/search/venue",54,"food","id",true,'experiments',res);
+  requests.apiary_post("foods/search/venue",54,"food","id",true,'experiments',res);
+});
+
+/*    _____-------______-----_____-----___
+                UI page's stuff
+      -----_______------_____-----_____--- */
+
+app.get('/ui', function(req, res) {
+  requests.vert_carousel("foods/search/venue",54,"food","id",true,'experiments',res);
 });

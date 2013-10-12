@@ -57,21 +57,21 @@ var grab_desc_v1p1 = function(json) {
   var temp, n;
   var retval="";
 
-  //parse("description",15);
-  //parse("currency",12);
-  //parse("website",11);
-  //parse("phone",9);
-  retval += parse("img_url",11,json,retval);
-  //parse("street_number",17);
-  //parse("street\"",10);
-  //parse("city",8);
-  //parse("state",9);
-  //parse("country",11);
-  //parse("zipcode",11);
+  retval=parse("description",15,json,retval);
+  retval=parse("currency",12,json,retval);
+  retval=parse("website",11,json,retval);
+  retval=parse("phone",9,json,retval);
+  retval=parse("img_url",11,json,retval);
+  retval=parse("street_number",17,json,retval);
+  retval=parse("street\"",10,json,retval);
+  retval=parse("city",8,json,retval);
+  retval=parse("state",9,json,retval);
+  retval=parse("country",11,json,retval);
+  retval=parse("zipcode",11,json,retval);
 
   retval = retval.split("}",1).join();
   retval = "<p>" + retval + "</li></p>";
-  //retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
+  retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
   retval+="</div>";
   return retval;
 }
@@ -82,7 +82,7 @@ var how_many_v1p1 = function(string, substring) {
 }
 
 function parse(searcher,adder,json,retval) {
-    n = json.search(searcher);
+    var n = json.search(searcher);
     temp = json.substr(n+adder);
     temp = temp.split("\",",1).join();
     if (searcher=="img_url") {
@@ -116,7 +116,6 @@ function vert_carousel(i,body) {
   var newbod = grab_req_v1p1(body, i);
   var name1 = stream_name(newbod);
   newbod = stream_desc(newbod);
-  //name1 += newbod;
   return newbod;
 }
 

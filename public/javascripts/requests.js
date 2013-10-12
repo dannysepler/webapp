@@ -51,26 +51,13 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
     // Then i'm gonna loop the following statements for each
     // venue, adding on the text to what I had from the previous loop
     
-    for (var i = 1; i < 16; i++) {
+    for (var i = 1; i < text; i++) {
       newbod = functions.grab_req_v1p1(body, i);
       name1 = functions.grab_name_v1p1(newbod);
       newbod = functions.grab_desc_v1p1(newbod);
       name1 += newbod;
       end += name1;
     }
-
-    /*newbod = functions.grab_req_v1p1(body, 2);
-    name1  = functions.grab_name_v1p1(newbod);
-    newbod = functions.grab_desc_v1p1(newbod);
-    name1 += newbod;
-    end += name1;
-
-    newbod = functions.grab_req_v1p1(body, 3);
-    name1  = functions.grab_name_v1p1(newbod);
-    newbod = functions.grab_desc_v1p1(newbod);
-    name1 += newbod;
-    end += name1;*/
-
 
     res.render(renlink, {
       title: 'Title',
@@ -82,7 +69,7 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
   });
 }
 
-var vert_carousel_render=function(link,number,first,second,renbool,renlink,res){
+var vert_carousel=function(link,number,first,second,renbool,renlink,res){
   request({
     url: "http://eatable.apiary.io/"+link+".json",
     body: "{ \""+first+"\": { \""+second+"\": \""+number+"\" } }",
@@ -115,4 +102,4 @@ module.exports.post_request = post_request;
 module.exports.get_request  = get_request;
 module.exports.put_request  = put_request;
 module.exports.apiary_post  = apiary_post;
-module.exports.vert_carousel_render = vert_carousel_render;
+module.exports.vert_carousel = vert_carousel;
