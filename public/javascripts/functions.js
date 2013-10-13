@@ -1,47 +1,7 @@
 // ~~~~~~~~~~~~~~~
-//    VERSION 1
+//   EXPERIMENTS
 // ~~~~~~~~~~~~~~~
 
-var single_dejsoner = function(json, name, first) {
-  if(!json)
-	return "";
-  json=json.replace("[","");
-  json=json.replace("]","");
-  json=json.replace(" ]","");
-  for (var i = 0; i<json.length-1;i++) {
-    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
-    json=json.replace("\"}},","</li>");
-  }
-  json=json.replace("\"}}","</li>");
-  json=json.replace(" ","")
-  return json;
-}
-
-function double_dejsoner(json, name, first, second) {
-  if(!json)
-	return "";
-  json=json.replace("[","");
-  json=json.replace("]","");
-  json=json.replace(" ]","");
-  for (var i = 0; i<json.length-1;i++) {
-    json=json.replace("{\""+name+"\":{\""+first+"\":\"","<li>");
-    json=json.replace("\""+second+"\":\""," &clubs; ");
-    json=json.replace("\",","");
-    json=json.replace("\"}},","</li>");
-  }
-  json=json.replace("\"}}","");
-  json=json.replace(" ","")
-  return json;
-}
-
-function unlister(input) {
-  input=input.replace("<li>","");
-  input=input.replace("</li>","");
-  return input;
-}
-// ~~~~~~~~~~~~~~
-//   VERSION 2
-// ~~~~~~~~~~~~~~
 var grab_req_v1p1 = function(json, time_around) {
   var array = json.split("\"venue\"",time_around+1);
   var retval = array[time_around];
@@ -113,7 +73,7 @@ function parse(searcher,adder,json,retval) {
 }
 
 // ~~~~~~~~~~~~~~
-//   VERSION 3
+//    UI PAGE
 // ~~~~~~~~~~~~~~
 
 function vert_carousel(i,body) {
@@ -176,19 +136,18 @@ function stream_parse(searcher,adder,json,retval) {
       HERE ARE THE NAMES
     ~~~~~~~~~~~~~~~~~~~~~~~~    */
 
-// VERSION 1
-module.exports.single_dejsoner = single_dejsoner;
-module.exports.double_dejsoner = double_dejsoner;
-module.exports.unlister        = unlister;
+// EXPERIMENTS (AND SOME UI)
 
-// VERSION 2
 module.exports.grab_req_v1p1   = grab_req_v1p1;
+  // for UI too
 module.exports.grab_name_v1p1  = grab_name_v1p1;
 module.exports.grab_desc_v1p1  = grab_desc_v1p1;
 module.exports.how_many_v1p1   = how_many_v1p1;
 module.exports.parse           = parse;
 
-// VERSION 3
+
+// UI
+
 module.exports.vert_carousel   = vert_carousel;
 module.exports.stream_name     = stream_name;
 module.exports.stream_desc     = stream_desc;

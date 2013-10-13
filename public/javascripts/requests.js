@@ -77,7 +77,7 @@ var vert_carousel=function(link,number,first,second,renbool,renlink,res){
     method: "POST"
   }, function (error, response, body) {
     //var end= "<div class= \"hero-unit\">";
-    var end = ""
+    var end = "";
     var text = functions.how_many_v1p1(body, "\"venue\""); 
     for (var i = 1; i < text+1; i++) {
       end+=functions.vert_carousel(i,body);
