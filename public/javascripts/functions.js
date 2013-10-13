@@ -139,7 +139,7 @@ function stream_desc(json) {
 
   retval = retval.split("}",1).join();
   retval = "<p>" + retval + "</li></p>";
-  retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
+  //retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
   retval+="</div>";
   return retval;
 }
