@@ -1,0 +1,15 @@
+extends layout
+prepend head
+	link(rel='stylesheet', href='/stylesheets/ui/ui.css')
+	//script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
+	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
+
+append after
+	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
+	script(type='text/javascript', src='/javascripts/ui/jquery_ui.js')
+
+block content
+	#wrapper(style="margin-left:300px;margin-top:-20px;")
+		#sticker
+	div(id="data" style="")
+		!{data.header}

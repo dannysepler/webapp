@@ -1,11 +1,16 @@
 !!! 5
 html
+  block head
+
   head
     link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     title= title
     link(rel='stylesheet', href='/stylesheets/style2.css')
-    //link(rel='stylesheet', href='/stylesheets/style.styl')
-    //link(rel='stylesheet', href='/stylesheets/chunkfive-fontface.css')
+    script(type='text/javascript', src='http://code.jquery.com/jquery-2.0.3.min.js')
+    //script(type='text/javascript', src='/javascripts/ui/jquery_ui.js')
+
+  block after
+
   body
     header
       nav
@@ -14,6 +19,8 @@ html
             a(href="/") Home
           li 
             a(href="/experiments") Experiments
+          li
+            a(href="/ui") UI
           li
             a(href="/app") API Calls
     section#wrapper
