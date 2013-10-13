@@ -1,4 +1,6 @@
 var single_dejsoner = function(json, name, first) {
+  if(!json)
+	return "";
   json=json.replace("[","");
   json=json.replace("]","");
   json=json.replace(" ]","");
@@ -12,6 +14,8 @@ var single_dejsoner = function(json, name, first) {
 }
 
 function double_dejsoner(json, name, first, second) {
+  if(!json)
+	return "";
   json=json.replace("[","");
   json=json.replace("]","");
   json=json.replace(" ]","");

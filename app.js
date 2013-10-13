@@ -566,40 +566,6 @@ app.post('/app/states/put', function(req,response) {
 
 // STREETS
 app.get('/app/streets', function(req,res) {
-
-function dejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("\"","");
-	json=json.replace("street", "");
-	json=json.replace("name", "");
-	json=json.replace(": ", "");
-	json=json.replace("{ ", "");
-	json=json.replace(" }", "");
-      }
-      return json;
-    }
-
-function singleObjectDejsoner(json) {
-      json=json.replace("[","");
-      json=json.replace("]","");
-      json=json.replace(" ]","");
-      for (var i = 0; i<json.length-1;i++) {
-        json=json.replace("\"","");
-        json=json.replace("street", "");
-        json=json.replace("name", "");
-        json=json.replace(": ", "");
-        json=json.replace("{ ", "");
-        json=json.replace(" }", "");
-	json=json.replace(":", "");
-        json=json.replace("{", "");
-        json=json.replace("}", "");
-      }
-      return json;
-    }
-
   // request 1
   request({
     url: "http://eatable1.apiary.io/streets.json",
@@ -614,7 +580,7 @@ function singleObjectDejsoner(json) {
     method: "GET"
   }, function (error, response, body) {
     res2htemp = functions.single_dejsoner(body, "street", "name");
-    res2htemp = functions.unlister(reshtemp);
+    res2htemp = functions.unlister(res2htemp);
   });
 
   res.render('app/streets', {
