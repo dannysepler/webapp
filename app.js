@@ -65,12 +65,32 @@ http.createServer(app).listen(app.get('port'), function(){
 
 
 // <---------------------------------->
-//              REQUESTING
+//              GETTING PAGES
 // <---------------------------------->
 
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Home'
+  });
+});
+
+app.get('/projects', function(req, res){
+  res.render('projects/index', {
+    title: 'Projects'
+  });
+});
+
+// MAPS
+
+app.get('/projects/maps/full', function(req, res){
+  res.render('projects/maps/full', {
+    title: 'Maps'
+  });
+});
+
+app.get('/projects/maps/integrated', function(req, res){
+  res.render('projects/maps/integrated', {
+    title: 'Maps'
   });
 });
 
