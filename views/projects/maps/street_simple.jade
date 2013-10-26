@@ -1,0 +1,14 @@
+extends ../../layout
+
+append after
+	// meta(name="viewport", content="initial-scale=1.0, user-scalable=no")
+
+	link(rel="stylesheet", href="/stylesheets/maps/simple.css")
+
+	script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGWNkYwP2hY2JqfLeiYooGi1K7eOoAXDY&sensor=true")
+
+	script(type="text/javascript", src="/javascripts/maps/street.js")
+
+block content
+	#map-canvas
+	#pano

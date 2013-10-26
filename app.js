@@ -84,14 +84,77 @@ app.get('/projects', function(req, res){
 
 app.get('/projects/maps/full', function(req, res){
   res.render('projects/maps/full', {
-    title: 'Maps'
+    title: 'Map | Fullscreen'
   });
 });
 
-app.get('/projects/maps/integrated', function(req, res){
-  res.render('projects/maps/integrated', {
-    title: 'Maps'
+app.get('/projects/maps/simple', function(req, res){
+  res.render('projects/maps/simple', {
+    title: 'Map | Simple'
   });
+});
+
+app.get('/projects/maps/geo', function(req, res){
+  res.render('projects/maps/geo', {
+    title: 'Map | Current Location'
+  });
+});
+
+
+app.get('/projects/maps/directions', function(req, res){
+  res.render('projects/maps/directions', {
+    title: 'Map | Directions with Options (Inputted)'
+  });
+});
+
+app.get('/projects/maps/street_simple', function(req, res){
+  res.render('projects/maps/street_simple', {
+    title: 'Map | Street View'
+  });
+});
+
+// SOCIAL
+
+app.get('/projects/social/fb/picture', function(req, res){
+  res.render('projects/social/fb/picture', {
+    title: 'Social | Facebook Picture'
+  });
+});
+
+app.get('/projects/social/fb/like', function(req, res){
+  res.render('projects/social/fb/like', {
+    title: 'Social | Like Button'
+  });
+});
+
+app.get('/projects/social/fb/login', function(req, res){
+  res.render('projects/social/fb/login', {
+    title: 'Social | Login Test'
+  });
+});
+
+// CORS
+app.get('/projects/cors/cities', function(req, res){
+  res.render('projects/cors/cities', {
+    title: 'CORS | Cities'
+  });
+});
+
+app.post('/projects/cors/cities', function(requests,response) {
+  //note that it's called requests instead of request. this is
+  //not to confuse it with the node 'request' library
+  request({
+    url: "http://api.eatable.at:5000/cities.json",
+    body: "{ \"name\": \"Tallahassee\" }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    console.log("Status", response.statusCode);
+    console.log("Headers", JSON.stringify(response.headers));
+    console.log("Response received", body);
+
+  });
+  response.redirect('/');
 });
 
 /*    _____-------______-----_____-----___

@@ -1,0 +1,30 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+
+#map-canvas { height: 500px; width:400px; }
+
+
+/* for the directions.jade page */
+#direction_in {
+	position:absolute;
+	margin-top:-495px;
+	margin-left:70px;
+}
+
+#directions-panel {
+	height: 500px;
+	float: right;
+	width: 390px;
+	overflow: auto;
+	font-size: 14px;
+	font-family: Arial;
+	margin-top:-510px; 
+}
+
+#pano {
+	position:absolute;
+	left:444px;
+	top: 71px;
+	width: 500px;
+	height: 500px;
+}

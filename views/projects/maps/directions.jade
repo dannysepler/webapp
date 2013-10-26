@@ -1,0 +1,23 @@
+extends ../../layout
+
+append after
+	meta(name="viewport", content="initial-scale=1.0, user-scalable=no")
+
+	link(rel="stylesheet", href="/stylesheets/maps/simple.css")
+
+	script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGWNkYwP2hY2JqfLeiYooGi1K7eOoAXDY&sensor=false")
+
+	script(type="text/javascript", src="/javascripts/maps/directions.js")
+
+block content
+	#map-canvas
+
+	#direction_in
+		input(type="text" class="input-medium search-query" id="start" placeholder="start" style="width:130px;" value="")
+		
+		input(type="text" class="input-medium search-query" id="end" placeholder="end" value="" style="width:130px")
+
+		#button
+			input(type="button" value="find me it!" class = "btn" onclick="calcRoute();")
+
+	#directions-panel

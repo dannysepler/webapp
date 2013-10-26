@@ -1,0 +1,13 @@
+extends ../../../layout
+
+append after
+	script(src="//connect.facebook.net/en_US/all.js")
+
+block body
+	#fb-root
+
+	script(src="/javascripts/projects/social/fb-pic-head.js")
+
+
+block content
+	div(class="fb-like" data-href="https://www.facebook.com/eatable.at" data-width="300px" data-height="300px" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false")

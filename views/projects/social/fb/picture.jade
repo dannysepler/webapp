@@ -1,0 +1,20 @@
+extends ../../../layout
+
+append after
+	meta(charset="UTF-8")
+	script(src="//code.jquery.com/jquery-2.0.3.min.js")
+	script(src="//connect.facebook.net/en_US/all.js")
+	// script(src="/javascripts/projects/social/fb-pic-head.js")
+
+block body
+	#fb-root
+
+	script(src="/javascripts/projects/social/fb-pic-head.js")
+
+	script.
+		
+
+block content
+	#fb-root
+		p(id="message")
+		input(type="button" class="btn" value="get a photo!" onclick="Login();")
