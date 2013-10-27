@@ -87,5 +87,6 @@ app.get('/experiments', function(req, res) {
       -----_______------_____-----_____--- */
 
 app.get('/ui', function(req, res) {
-  requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
+  //requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
+  requests.vert_carousel("recommendations/search",4,"user_id",":id",true,'ui',res);
 });

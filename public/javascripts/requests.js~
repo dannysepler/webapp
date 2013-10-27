@@ -70,36 +70,23 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
   });
 }
 
-var vert_carousel = function(link,number,first,second,renbool,renlink,res) {
-  /*request( {
+var vert_carousel=function(link,number,first,second,renbool,renlink,res){
+  request({
     url: "http://eatable.apiary.io/"+link+".json",
     body: "{ \""+first+"\": { \""+second+"\": \""+number+"\" } }",
-    headers: { "Content-Type": "application/json" },
-    method: "POST"
-  }*/
-
-  request( {
-    url: "http://eatable.apiary.io/"+link+".json",
-    body: "{ \"" + first + "\": \"" + number + "\" }",
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
-    // creates javascript food objects, but only in scope of method
-    var foodArray = JSON.parse(body);
-    console.log(foodArray.length);
-    var end = "";
-    // foreach loop doesn't work
-    for( var i = 0; i < 15; i++ ) {
-	var food = new models.Food( foodArray[i].food );
-        end += functions.addToFoodStream( food );
-    }
-
+  		console.log(body);
+  		console.log(models.Food(body));
+  		console.log("write something");
     //var end= "<div class= \"hero-unit\">";
-    /*var text = functions.how_many_v1p1(body, "\"venue\""); 
-    for ( var i = 1; i < text+1; i++ ) {
-      end += functions.vert_carousel( i, body );
-    }*/
-    end+="</div>"
+    var end = "";
+    var text = functions.how_many_v1p1(body, "\"venue\""); 
+    for (var i = 1; i < text+1; i++) {
+      end+=functions.vert_carousel(i,body);
+    }
+    //end+="</div>"
 
     res.render(renlink, {
       title: 'Vertical Carousel',

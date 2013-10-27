@@ -10,7 +10,7 @@ append after
 
 block content
 	#wrapper(style="margin-left:300px;margin-top:-20px;")
-		#sticker
+		#sticker(style="color:blue")
 			img(id="focalFood" src="https://si0.twimg.com/profile_images/640078794/htlogo.jpg")
 	div(id="data" style="")
 		!{data.header}
