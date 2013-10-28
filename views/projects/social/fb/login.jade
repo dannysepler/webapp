@@ -3,6 +3,22 @@ extends ../../../layout
 append after
 	script(src="//connect.facebook.net/en_US/all.js")
 
-block body
+block content
 	#fb-root
-	script(src="/javascripts/projects/social/fb-login.js")
+	script(src="/javascripts/projects/social/fb-pic-head.js")
+
+	// looking to incorporate this button
+	h4 button
+
+	input(type="button" class="btn" value="Login" onclick="Login();")
+
+	h4 form
+
+	form(method="POST" action="/fblogin" id="fbform")
+		input(type="hidden" name="stuff" value="" id="message")
+		input(type="button" class="btn" id="firstbutton" value="Login" onclick="Login();")
+
+	h4 delete
+
+	form(method="POST" action="/deleteme")
+		input(type="submit" class="btn" value="deleteme")

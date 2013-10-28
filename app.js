@@ -15,23 +15,27 @@ var app = express();
 var connect = require('connect'),
   flash = require('connect-flash');
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// WHERE ARE ALL OUR FUNCTIONS ARE STORED
 var functions = require('./public/javascripts/functions.js');
 var requests = require('./public/javascripts/requests.js');
-    //this is where all our functions are!
+
+//var login = require('./public/javascripts/projects/social/fb-pic-head.js');
+  //var temp; // for use with login
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 //PASSPORT VARIABLIES
-var passport = require('passport')
+/*var passport = require('passport')
   , OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
 var FacebookStrategy = require('passport-facebook').Strategy;
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;*/
 
 // all environments
-//app.engine('html', require('ejs').renderFile);
-//app.engine('.html', require('jade').__express);
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views', __dirname + '/views/app');
 app.set('view engine', 'jade');
@@ -141,11 +145,9 @@ app.get('/projects/cors/cities', function(req, res){
 });
 
 app.post('/projects/cors/cities', function(requests,response) {
-  //note that it's called requests instead of request. this is
-  //not to confuse it with the node 'request' library
   request({
     url: "http://api.eatable.at:5000/cities.json",
-    body: "{ \"name\": \"Tallahassee\" }",
+    body: login.LoginwReturn(),
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
@@ -156,6 +158,57 @@ app.post('/projects/cors/cities', function(requests,response) {
   });
   response.redirect('/');
 });
+
+app.post('/login', function(requests,response) {
+  if (requests.body.message == "")
+    console.log("Hello");
+
+  /*request({
+    url: "http://api.eatable.at:5000/users.json",
+    body: requests.body.userinfo.value,
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    console.log("Status", response.statusCode);
+    console.log("Headers", JSON.stringify(response.headers));
+    console.log("Response received", body);
+  });*/
+
+
+  response.redirect('/projects');
+});
+
+app.post('/fblogin', function(req, res) {
+  
+  // console.log(req.body.stuff);
+
+  request({
+    url: "http://api.eatable.at:5000/users.json",
+    body: req.body.stuff,
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    console.log("Status", response.statusCode);
+    console.log("Headers", JSON.stringify(response.headers));
+    console.log("Response received", body);
+  });
+
+  res.redirect("http://localhost:3000/projects/social/fb/login");
+});
+
+app.post('/deleteme?', function(requests,response) {
+  request({
+    url: "http://api.eatable.at:5000/users/8474.json",
+    headers: {"Content-Type": "application/json"},
+    method: "DELETE"
+  }, function (error, response, body) {
+    console.log("Status", response.statusCode);
+    console.log("Headers", JSON.stringify(response.headers));
+    console.log("Response received", body);
+  });
+  response.redirect('/projects');
+});
+
 
 /*    _____-------______-----_____-----___
             Experiment page's stuff

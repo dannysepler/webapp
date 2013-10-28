@@ -1,6 +1,6 @@
 var request = require('request');
 var functions = require('./functions.js');
-
+//var fb = require('./javascripts/projects/social/fb-pic-head.js');
 
 var get_request = function(link,first,second,response) {
 	request({
@@ -20,6 +20,18 @@ var post_request = function(link,first,second,element,response) {
   	}, function (error, response, body) {
   	});
   	response.redirect('/app');
+}
+
+var post_anything = function(where,body,redirect,res) {
+  // for requests where all json is created outside of them
+  request({
+      url: "http://api.eatable.at:5000/"+where+".json",
+      body: body,
+      headers: {"Content-Type": "application/json"},
+      method: "POST"
+    }, function (error, res, body) {
+    });
+    res.redirect('\''+redirect+'\'');
 }
 
 var put_request = function(link,number,first,second,element,response) {
@@ -69,6 +81,11 @@ var apiary_post = function(link,number,first,second,renbool,renlink,res){
   });
 }
 
+/*var fb_login = function(res) {
+  var json = fb.LoginwReturn();
+  post_anything('users',json,'projects',res);
+}*/
+
 var vert_carousel=function(link,number,first,second,renbool,renlink,res){
   request({
     url: "http://eatable.apiary.io/"+link+".json",
@@ -102,4 +119,6 @@ module.exports.post_request = post_request;
 module.exports.get_request  = get_request;
 module.exports.put_request  = put_request;
 module.exports.apiary_post  = apiary_post;
-module.exports.vert_carousel = vert_carousel;
+module.exports.post_anything= post_anything;
+//module.exports.fb_login     = fb_login;
+module.exports.vert_carousel= vert_carousel;
