@@ -44,17 +44,20 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.configure('development', function(){
+app.use(express.cookieParser());
+app.use(express.session({secret: '12345'}));
+app.use(app.router);
+
+/*app.configure('development', function(){
   app.use(express.errorHandler());
   app.locals.pretty = true;
-  app.use(express.cookieParser('keyboard cat'));
-  app.use(express.session({ cookie: { maxAge: 60000 }}));
+  app.use(express.cookieParser());
+  app.use(express.session({secret: '12345'}));
   app.use(flash());
-});
+});*/
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -209,6 +212,46 @@ app.post('/deleteme?', function(requests,response) {
   response.redirect('/projects');
 });
 
+/*    _____-------______-----_____-----
+            Session page's stuff
+      -----_______------_____-----_____ */
+
+app.get('/one', function(req, res) {
+  if(req.session.lastPage) {
+    //res.write('last page visited was '+req.session.lastPage+'.');
+    res.send('now on one. last page visited was ' + req.session.lastPage);
+    req.session.lastPage='/one';
+  }
+  else {
+    req.session.lastPage='/one';
+    res.send('one');
+  }
+});
+
+app.get('/two', function(req, res) {
+  if(req.session.lastPage) {
+    //res.write('last page visited was '+req.session.lastPage+'.');
+    res.send('now on two. last page visited was ' + req.session.lastPage);
+    req.session.lastPage='/two';
+  }
+  else {
+    req.session.lastPage='/two';
+    res.send('two');
+  }
+});
+
+app.get('/three', function(req, res) {
+  if(req.session.lastPage) {
+    //res.write('last page visited was '+req.session.lastPage+'.');
+    res.send('now on three. last page visited was '+req.session.lastPage);
+    req.session.lastPage='/three';
+    //res.send('hello');
+  }
+  else {
+    req.session.lastPage='/three';
+    res.send('three');
+  }
+});
 
 /*    _____-------______-----_____-----___
             Experiment page's stuff
