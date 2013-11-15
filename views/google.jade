@@ -1,0 +1,22 @@
+extends layout
+
+prepend head
+	script(src="/javascripts/projects/social/googlehead.js")
+
+block content
+	span(id="signinButton")
+		span(
+			class="g-signin"
+			data-callback="signinCallback"
+			data-clientid="371573734026.apps.googleusercontent.com"
+			data-cookiepolicy="single_host_origin"
+			data-requestvisibleactions="http://schemas.google.com/AddActivity"
+			data-scope="https://www.googleapis.com/auth/plus.login")
+	#results
+
+	#signoutButton(style="height:20px;width:100px;background-color:black;color:green" onclick="signoutCallback();") Sign out
+
+	#signoutButton(style="height:20px;width:100px;background-color:blue;color:white" onclick="printCookie();") Check for token
+
+prepend bodyafter
+	script(src="/javascripts/projects/social/googlefoot.js")

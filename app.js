@@ -17,8 +17,10 @@ var connect = require('connect'),
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // WHERE ARE ALL OUR FUNCTIONS ARE STORED
+
 var functions = require('./public/javascripts/functions.js');
 var requests = require('./public/javascripts/requests.js');
+var googlefoot = require('./public/javascripts/projects/social/googlefoot.js')
 
 //var login = require('./public/javascripts/projects/social/fb-pic-head.js');
   //var temp; // for use with login
@@ -173,6 +175,25 @@ app.get('/', function(req, res){
   });
 });
 
+app.get('/g', function(req, res){
+  res.render('google', {
+    title: 'Google'
+  });
+});
+
+app.get('/login', function(req, res){
+  if ( token ) {
+    // redirect to food stream page
+    res.redirect('/ui');
+  }
+
+  else {
+    // redirect to login page
+    res.redirect('/g');
+  }
+});
+
+
 app.get('/projects', function(req, res){
   res.render('projects/index', {
     title: 'Projects'
@@ -274,9 +295,6 @@ app.post('/login', function(requests,response) {
 });
 
 app.post('/fblogin', function(req, res) {
-  
-  // console.log(req.body.stuff);
-
   request({
     url: "http://api.eatable.at:5000/users.json",
     body: req.body.stuff,
@@ -310,7 +328,6 @@ app.post('/deleteme?', function(requests,response) {
 
 app.get('/one', function(req, res) {
   if(req.session.lastPage) {
-    //res.write('last page visited was '+req.session.lastPage+'.');
     res.send('now on one. last page visited was ' + req.session.lastPage);
     req.session.lastPage='/one';
   }
@@ -322,7 +339,6 @@ app.get('/one', function(req, res) {
 
 app.get('/two', function(req, res) {
   if(req.session.lastPage) {
-    //res.write('last page visited was '+req.session.lastPage+'.');
     res.send('now on two. last page visited was ' + req.session.lastPage);
     req.session.lastPage='/two';
   }
@@ -334,10 +350,8 @@ app.get('/two', function(req, res) {
 
 app.get('/three', function(req, res) {
   if(req.session.lastPage) {
-    //res.write('last page visited was '+req.session.lastPage+'.');
     res.send('now on three. last page visited was '+req.session.lastPage);
     req.session.lastPage='/three';
-    //res.send('hello');
   }
   else {
     req.session.lastPage='/three';
