@@ -20,25 +20,20 @@ var connect = require('connect'),
 var functions = require('./public/javascripts/functions.js');
 var requests = require('./public/javascripts/requests.js');
 
+//var login = require('./public/javascripts/projects/social/fb-pic-head.js');
+  //var temp; // for use with login
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-// PASSPORT VARIABLIES
+//PASSPORT VARIABLIES
+/*var passport = require('passport')
+  , OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
-var passport = require('passport')
-
-//  , LocalStrategy = require('passport-local').Strategy
-
-  , OpenIDStrategy = require('passport-openid').Strategy
-      // OpenID is necessary for Google Authentication
-
-  , OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-  , GoogleStrategy = require('passport-google').Strategy;
-
-//var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
 var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
 var FacebookStrategy = require('passport-facebook').Strategy;
+var LocalStrategy = require('passport-local').Strategy;*/
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -47,24 +42,14 @@ app.set('view engine', 'jade');
 app.set('view options', { pretty: true });
 app.use(express.favicon());
 app.use(express.logger('dev'));
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use(express.cookieParser());
-//app.use(express.session({secret: '12345'}));
-//app.use(app.router);
-
-app.configure(function() {
-  app.use(express.static('public'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session({secret: '12345'}));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-});
+app.use(express.cookieParser());
+app.use(express.session({secret: '12345'}));
+app.use(app.router);
 
 /*app.configure('development', function(){
   app.use(express.errorHandler());
@@ -72,11 +57,11 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.session({secret: '12345'}));
   app.use(flash());
-});
+});*/
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
-} */
+}
 
 app.get('/', routes.index);
 app.get('/users', user.list);
@@ -85,77 +70,6 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-/* <---------------------------------->
-              PASSPORT CONFIG
-   <----------------------------------> */
-
-// using OAUTH
-
-passport.use('google', new OAuth2Strategy({
-    authorizationURL: '/oauth2/authorize',
-    tokenURL: '/oauth2/token',
-    clientID: '371573734026.apps.googleusercontent.com',
-    clientSecret: '3q9pFap6DnUiC0J3CaVJKrqW',
-    callbackURL: '/auth/provider/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate( 
-      
-        // do stuff
-        console.log("test")
-      
-      , function(err, user) {
-      done(err, user);
-        // return error message
-        // that first parameter has to be null to continue
-    });
-  }
-));
-
-passport.use(new GoogleStrategy({
-  returnURL: '/auth/google/return',
-  realm: '/'
-  },
-  function(identifier, profile, done) {
-    User.findOrCreate({ openId: identifier}, function(err, user) {
-      done(err, user);
-    });
-  }
-));
-
-
-
-// using OPENID
-
-passport.use(new OpenIDStrategy({
-  returnURL: "/auth/openid/return",
-  realm: "/" /* ,
-  profile: true 
-    (for obtaining info about the user) */
-  },
-  function(identifier, done) {
-    User.findOrCreate({ openId: idenfier }, function(err, user) {
-      done(err, user);
-        // return some error message
-    });
-  }
-));
-/* <---------------------------------->
-          GETTING PASSPORT PAGES
-   <----------------------------------> */
-
-app.get('/auth/google', passport.authenticate('google'));
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { successRedirect: '/success',
-                                      failureRedirect: '/failure' }));
-
-
-app.post('/auth/openid', passport.authenticate('openid'));
-
-app.get('/auth/openid/return', 
-  passport.authenticate('openid', { successRedirect: '/success',
-                                    failureRedirect: '/failure' }));
 
 // <---------------------------------->
 //              GETTING PAGES
