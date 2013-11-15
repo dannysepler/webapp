@@ -182,6 +182,16 @@ app.get('/g', function(req, res){
 });
 
 app.get('/login', function(req, res){
+  /* https://gist.github.com/visionmedia/1491756 */
+  /* according to this article, should be something like...
+
+  if ( token ) {
+    redirect to '/ui';
+  }
+  else {
+    
+  } */
+
   if ( token ) {
     // redirect to food stream page
     res.redirect('/ui');
