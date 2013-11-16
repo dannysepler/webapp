@@ -1,3 +1,9 @@
+var express = require('express');
+var app = express();
+
+app.use(express.cookieParser());
+app.use(express.session());
+
 /* accessible functions outside of file:
 
   checktoken -- returns true or false
@@ -11,8 +17,14 @@ function signinCallback(authResult) {
     // document.getElementById('signinButton').setAttribute('style', 'display: none');
   
     // now print out the access code
-    print("<br>" + "<em>access_token:</em> " + authResult['access_token']);
-    printCookie();
+    //print("<br>" + "<em>access_token:</em> " + authResult['access_token']);
+    //printCookie();
+
+    // populate the hidden form
+    document.getElementById('googleinput').value+=authResult['access_token'];
+    
+    // submit the form
+    document.getElementById('googleform').submit();
 
   } else if (authResult['error']) {
     // Update the app to reflect a signed out user
@@ -35,7 +47,8 @@ function checktoken() {
 }
 
 function printCookie() {
-  if ( gapi.auth.getToken() ) { print("Token"); }
+  // if ( gapi.auth.getToken() ) { print("Token"); }
+  if ( gapi.auth.getToken() ) { print("Token: "+ gapi.auth.getToken() ); }
   else { print("No token"); }
 }
 

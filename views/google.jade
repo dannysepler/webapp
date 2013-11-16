@@ -12,7 +12,11 @@ block content
 			data-cookiepolicy="single_host_origin"
 			data-requestvisibleactions="http://schemas.google.com/AddActivity"
 			data-scope="https://www.googleapis.com/auth/plus.login")
+
 	#results
+
+	form(method="post" action="/googleform" id="googleform")
+		input(type="text" id="googleinput" name="googleinfo")
 
 	#signoutButton(style="height:20px;width:100px;background-color:black;color:green" onclick="signoutCallback();") Sign out
 

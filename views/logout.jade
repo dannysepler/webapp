@@ -1,0 +1,13 @@
+extends layout
+
+prepend head
+	script(src="/javascripts/projects/social/googlehead.js")
+
+block content
+	form(method="post" action="/signout")
+		input(type='submit' style="height:20px;width:100px;background-color:black;color:green") Sign out
+
+	#results
+
+prepend bodyafter
+	script(src="/javascripts/projects/social/googlefoot.js")

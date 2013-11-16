@@ -179,6 +179,13 @@ app.get('/g', function(req, res){
   res.render('google', {
     title: 'Google'
   });
+
+  /*
+  
+  if ( token is given )
+    app's token = token
+
+  */
 });
 
 app.get('/login', function(req, res){
@@ -299,9 +306,35 @@ app.post('/login', function(requests,response) {
     console.log("Headers", JSON.stringify(response.headers));
     console.log("Response received", body);
   });*/
-
-
+ 
   response.redirect('/projects');
+});
+
+app.get('/logout', function(req,res) {
+  res.render('logout', {
+    title: 'Log out'
+  });
+});
+
+app.post('/signout', function(req,res) {
+  req.session.token=false;
+  res.redirect('/');
+});
+
+app.post('/googleform', function(req,res) {
+  req.session.token=req.body.googleinfo;
+  console.log('req.session.token is '+req.session.token);
+  console.log('req.body.googleinfo is '+req.body.googleinfo);
+
+  res.redirect('/socnetworkredirect');
+});
+
+app.get('/socnetworkredirect', function(req,res) {
+  if ( req.session.token )
+    res.redirect('/ui');
+
+  else
+    res.redirect('/incorrect_credentials');
 });
 
 app.post('/fblogin', function(req, res) {
@@ -382,5 +415,9 @@ app.get('/experiments', function(req, res) {
       -----_______------_____-----_____--- */
 
 app.get('/ui', function(req, res) {
-  requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
+  if ( req.session.token )
+    requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
+
+  else
+    res.redirect('/#pleaselogin');
 });
