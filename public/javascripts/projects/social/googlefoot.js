@@ -1,9 +1,3 @@
-var express = require('express');
-var app = express();
-
-app.use(express.cookieParser());
-app.use(express.session());
-
 /* accessible functions outside of file:
 
   checktoken -- returns true or false

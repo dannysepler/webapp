@@ -169,6 +169,11 @@ app.get('/auth/openid/return',
 //              GETTING PAGES
 // <---------------------------------->
 
+function checklogin( req, res ) {
+  if ( !req.session.token )
+    res.redirect('/#pleaselogin');
+}
+
 app.get('/', function(req, res){
   res.render('index', {
     title: 'Home'
@@ -189,29 +194,14 @@ app.get('/g', function(req, res){
 });
 
 app.get('/login', function(req, res){
-  /* https://gist.github.com/visionmedia/1491756 */
-  /* according to this article, should be something like...
-
-  if ( token ) {
-    redirect to '/ui';
-  }
-  else {
-    
-  } */
-
-  if ( token ) {
-    // redirect to food stream page
-    res.redirect('/ui');
-  }
-
-  else {
-    // redirect to login page
-    res.redirect('/g');
-  }
+  res.render('login', {
+    title: 'Login'
+  });
 });
 
 
 app.get('/projects', function(req, res){
+  checklogin(req, res);
   res.render('projects/index', {
     title: 'Projects'
   });
@@ -290,24 +280,6 @@ app.post('/projects/cors/cities', function(requests,response) {
 
   });
   response.redirect('/');
-});
-
-app.post('/login', function(requests,response) {
-  if (requests.body.message == "")
-    console.log("Hello");
-
-  /*request({
-    url: "http://api.eatable.at:5000/users.json",
-    body: requests.body.userinfo.value,
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
-  });*/
- 
-  response.redirect('/projects');
 });
 
 app.get('/logout', function(req,res) {
@@ -407,6 +379,7 @@ app.get('/three', function(req, res) {
       -----_______------_____-----_____--- */
 
 app.get('/experiments', function(req, res) {
+  checklogin(req, res);
   requests.apiary_post("foods/search/venue",54,"food","id",true,'experiments',res);
 });
 
@@ -415,9 +388,6 @@ app.get('/experiments', function(req, res) {
       -----_______------_____-----_____--- */
 
 app.get('/ui', function(req, res) {
-  if ( req.session.token )
-    requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
-
-  else
-    res.redirect('/#pleaselogin');
+  checklogin(req, res);
+  requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
 });

@@ -2,15 +2,4 @@ extends layout
 
 block content
 	h1 Welcome to Eatable!
-	div(style="text-align:center;")
-		a(href="/auth/google")
-			img(src='/images/sign-in-with-google.png', height='50px',width='290px',style='cursor:pointer;margin-top:0px;')
-	p(style='text-align:center;margin-top:10px;') --or--
-	div(style="text-align:center;")
-		form(method="POST",action="/post")
-			input(type="image",src="/images/sign-in-with-google.png",alt="Submit Form",height="65px",width="300px")
-	p(style='text-align:center;margin-top:10px;') --or--
-	div(style="text-align:center;")
-		a(href="/auth/facebook")
-			img(src='/images/fblogin.png', height='50px',width='290px',style='cursor:pointer;margin-top:0px;')
-	p
+	a(href='/login') Login?

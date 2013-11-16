@@ -1,0 +1,22 @@
+extends layout
+
+prepend head
+	script(src="/javascripts/projects/social/googlehead.js")
+
+block content
+	h1 Welcome to Eatable!
+	span(id="signinButton")
+		span(
+			class="g-signin"
+			data-callback="signinCallback"
+			data-clientid="371573734026.apps.googleusercontent.com"
+			data-cookiepolicy="single_host_origin"
+			data-requestvisibleactions="http://schemas.google.com/AddActivity"
+			data-scope="https://www.googleapis.com/auth/plus.login")
+
+	form(method="post" action="/googleform" id="googleform")
+		input(type="hidden" id="googleinput" name="googleinfo")
+
+
+prepend bodyafter
+	script(src="/javascripts/projects/social/googlefoot.js")
