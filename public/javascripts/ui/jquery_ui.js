@@ -9,4 +9,10 @@ $(document).ready(function(){
   );
 
   $("#sticker").sticky({ topSpacing:0 });
+
+  $('.fade').click(function() {
+  	var imgSrc = $(this).attr("src");
+  	$('#sticker').attr('src',imgSrc);
+  });
+
 });
