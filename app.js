@@ -44,7 +44,7 @@ var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', __dirname + '/views', __dirname + '/views/app');
 app.set('view engine', 'jade');
 app.set('view options', { pretty: true });
