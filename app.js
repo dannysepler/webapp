@@ -295,9 +295,6 @@ app.post('/signout', function(req,res) {
 
 app.post('/googleform', function(req,res) {
   req.session.token=req.body.googleinfo;
-  console.log('req.session.token is '+req.session.token);
-  console.log('req.body.googleinfo is '+req.body.googleinfo);
-
   res.redirect('/socnetworkredirect');
 });
 
@@ -389,5 +386,5 @@ app.get('/experiments', function(req, res) {
 
 app.get('/ui', function(req, res) {
   checklogin(req, res);
-  requests.vert_carousel("foods/search/venue",54,"food","id",true,'ui',res);
+  requests.food_carousel('recommendations/search', 'ui', res);
 });

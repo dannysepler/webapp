@@ -73,7 +73,7 @@ function parse(searcher,adder,json,retval) {
 }
 
 // ~~~~~~~~~~~~~~
-//    UI PAGE
+//  OLD UI PAGE
 // ~~~~~~~~~~~~~~
 
 function vert_carousel(i,body) {
@@ -131,6 +131,55 @@ function stream_parse(searcher,adder,json,retval) {
   return retval;
 }
 
+// ~~~~~~~~~~~~~~
+//  NEW UI PAGE
+// ~~~~~~~~~~~~~~
+
+function food_carousel(i,body) {
+  var newbod = grab_food_req_v1p1(body, i);
+  //var name1 = stream_food_name(newbod);
+  newbod = food_desc(newbod);
+  return newbod;
+}
+
+var grab_food_req_v1p1 = function(json, time_around) {
+  var array = json.split("\"food\"",time_around+1);
+  var retval = array[time_around];
+  return retval;
+}
+
+function food_desc(json) {
+  var temp, n;
+  var retval  = "";
+  retval +=food_parse("img_url",200,json,retval);
+
+  retval = retval.split("}",1).join();
+  retval = "<p>" + retval + "</li></p>";
+  //retval += "<p><a class=\"btn btn-primary btn-large\">Take me there!</a></p>";
+  retval+="</div>";
+  return retval;
+}
+
+function food_parse(searcher,adder,json,retval) {
+    var n = json.search(searcher);
+    //console.log(n);
+    temp = json.substr(n+adder);
+    temp = temp.split("\",",1).join();
+    console.log(temp);
+    if (searcher=="img_url") {
+      retval += "<img class=\"fade\" src=\"";
+      retval = retval.concat(temp);
+      retval += "\", height=\"150px\", width=\"250px\", style=\"opacity:0.5;cursor:pointer\" \/>";
+    }
+    /*else {
+      retval += "<li>";
+      retval = retval.concat(temp);
+      retval += "</li>";
+    }*/
+
+    // console.log(retval);
+  return retval;
+}
 
 /*  ~~~~~~~~~~~~~~~~~~~~~~~~
       HERE ARE THE NAMES
@@ -152,3 +201,4 @@ module.exports.vert_carousel   = vert_carousel;
 module.exports.stream_name     = stream_name;
 module.exports.stream_desc     = stream_desc;
 module.exports.stream_parse    = stream_parse;
+module.exports.food_carousel   = food_carousel;

@@ -1,15 +1,8 @@
 var request = require('request');
 var functions = require('./functions.js');
-//var fb = require('./javascripts/projects/social/fb-pic-head.js');
+var jsonfunctions = require('./json.js');
 
-var get_request = function(link,first,second,response) {
-	request({
-    	url: "http://api.eatable.at:3000/"+link+".json",
-    	method: "GET"
-  	}, function (error, response, body) {
-    	return functions.single_dejsoner(body,first,second);
-  	});
-}
+//var fb = require('./javascripts/projects/social/fb-pic-head.js');
 
 var post_request = function(link,first,second,element,response) {
 	request({
@@ -111,14 +104,35 @@ var vert_carousel=function(link,number,first,second,renbool,renlink,res){
 
 }
 
+var food_carousel=function(link,renlink,res){
+  request({
+    url: "http://eatable.apiary.io/"+link+".json",
+    body: "{ \"id\": \"21\", \"tree_max\": \"2\" }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+
+    var end = jsonfunctions.foodstream(body);
+
+    res.render(renlink, {
+      title: 'Food Carousel',
+      data: {
+        header: end
+      }
+    });
+
+  });
+}
+
+
 /*	~~~~~~~~~~~~~~~~
-		THE NAMES
-	~~~~~~~~~~~~~~~~ */
+		  THE NAMES
+	 ~~~~~~~~~~~~~~~~ */
 
 module.exports.post_request = post_request;
-module.exports.get_request  = get_request;
 module.exports.put_request  = put_request;
 module.exports.apiary_post  = apiary_post;
 module.exports.post_anything= post_anything;
 //module.exports.fb_login     = fb_login;
 module.exports.vert_carousel= vert_carousel;
+module.exports.food_carousel= food_carousel;

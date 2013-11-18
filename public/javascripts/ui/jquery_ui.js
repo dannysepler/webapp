@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
   $('.fade').hover(
     function() {
       $(this).stop().fadeTo('fast', 1);
@@ -10,9 +10,10 @@ $(document).ready(function(){
 
   $("#sticker").sticky({ topSpacing:0 });
 
+  	// changing the image after
+  	// it is clicked
   $('.fade').click(function() {
   	var imgSrc = $(this).attr("src");
   	$('#sticker').attr('src',imgSrc);
   });
-
 });
