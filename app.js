@@ -91,87 +91,13 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-/* <---------------------------------->
-              PASSPORT CONFIG
-   <----------------------------------> */
-
-// using OAUTH
-
-passport.use('google', new OAuth2Strategy({
-    authorizationURL: '/oauth2/authorize',
-    tokenURL: '/oauth2/token',
-    clientID: '371573734026.apps.googleusercontent.com',
-    clientSecret: '3q9pFap6DnUiC0J3CaVJKrqW',
-    callbackURL: '/auth/provider/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate( 
-      
-        // do stuff
-        console.log("test")
-      
-      , function(err, user) {
-      done(err, user);
-        // return error message
-        // that first parameter has to be null to continue
-    });
-  }
-));
-
-passport.use(new GoogleStrategy({
-  returnURL: '/auth/google/return',
-  realm: '/'
-  },
-  function(identifier, profile, done) {
-    User.findOrCreate({ openId: identifier}, function(err, user) {
-      done(err, user);
-    });
-  }
-));
-
-
-
-// using OPENID
-
-passport.use(new OpenIDStrategy({
-  returnURL: "/auth/openid/return",
-  realm: "/" /* ,
-  profile: true 
-    (for obtaining info about the user) */
-  },
-  function(identifier, done) {
-    User.findOrCreate({ openId: idenfier }, function(err, user) {
-      done(err, user);
-        // return some error message
-    });
-  }
-));
-
-
-/* <---------------------------------->
-          GETTING PASSPORT PAGES
-   <----------------------------------> */
-
-app.get('/auth/google', passport.authenticate('google'));
-
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { successRedirect: '/success',
-                                      failureRedirect: '/failure' }));
-
-
-app.post('/auth/openid', passport.authenticate('openid'));
-
-app.get('/auth/openid/return', 
-  passport.authenticate('openid', { successRedirect: '/success',
-                                    failureRedirect: '/failure' }));
-
 // <---------------------------------->
 //              GETTING PAGES
 // <---------------------------------->
 
 function checklogin( req, res ) {
   if ( !req.session.token )
-    res.redirect('/#pleaselogin');
+    res.redirect('/loginredirect');
 }
 
 app.get('/', function(req, res){
@@ -184,13 +110,6 @@ app.get('/g', function(req, res){
   res.render('google', {
     title: 'Google'
   });
-
-  /*
-  
-  if ( token is given )
-    app's token = token
-
-  */
 });
 
 app.get('/login', function(req, res){
@@ -199,6 +118,11 @@ app.get('/login', function(req, res){
   });
 });
 
+app.get('/loginredirect', function(req, res){
+  res.render('loginredirect', {
+    title: 'Please Login'
+  });
+});
 
 app.get('/projects', function(req, res){
   checklogin(req, res);
@@ -306,21 +230,6 @@ app.get('/socnetworkredirect', function(req,res) {
     res.redirect('/incorrect_credentials');
 });
 
-app.post('/fblogin', function(req, res) {
-  request({
-    url: "http://api.eatable.at:5000/users.json",
-    body: req.body.stuff,
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
-  });
-
-  res.redirect("http://localhost:3000/projects/social/fb/login");
-});
-
 app.post('/deleteme?', function(requests,response) {
   request({
     url: "http://api.eatable.at:5000/users/8474.json",
@@ -332,52 +241,6 @@ app.post('/deleteme?', function(requests,response) {
     console.log("Response received", body);
   });
   response.redirect('/projects');
-});
-
-/*    _____-------______-----_____-----
-            Session page's stuff
-      -----_______------_____-----_____ */
-
-app.get('/one', function(req, res) {
-  if(req.session.lastPage) {
-    res.send('now on one. last page visited was ' + req.session.lastPage);
-    req.session.lastPage='/one';
-  }
-  else {
-    req.session.lastPage='/one';
-    res.send('one');
-  }
-});
-
-app.get('/two', function(req, res) {
-  if(req.session.lastPage) {
-    res.send('now on two. last page visited was ' + req.session.lastPage);
-    req.session.lastPage='/two';
-  }
-  else {
-    req.session.lastPage='/two';
-    res.send('two');
-  }
-});
-
-app.get('/three', function(req, res) {
-  if(req.session.lastPage) {
-    res.send('now on three. last page visited was '+req.session.lastPage);
-    req.session.lastPage='/three';
-  }
-  else {
-    req.session.lastPage='/three';
-    res.send('three');
-  }
-});
-
-/*    _____-------______-----_____-----___
-            Experiment page's stuff
-      -----_______------_____-----_____--- */
-
-app.get('/experiments', function(req, res) {
-  checklogin(req, res);
-  requests.apiary_post("foods/search/venue",54,"food","id",true,'experiments',res);
 });
 
 /*    _____-------______-----_____-----___

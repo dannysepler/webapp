@@ -10,7 +10,9 @@ function foodstream( input ) {
 	for (var i = 1; i < count+1; i++) {
 		var object = parsed[i-1];
 		end+="<div class= \"hero-unit\" style=\"width:200px;\" >";
-		end+=object.food.name+"<br>";
+		end+="id: "+object.food.id+"<br>";
+		end+=object.food.name+"<br><br>";
+		end+=object.food.description+"<br>";		
 		end+="<img class=\"fade thumbnails\" src=\""+object.food.image_url+"\" height=\"200px\" width=\"200px\" \/>";
 		end+="</div>";
     }
