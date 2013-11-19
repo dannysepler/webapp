@@ -219,13 +219,29 @@ app.post('/signout', function(req,res) {
 
 app.post('/googleform', function(req,res) {
   req.session.token=req.body.googleinfo;
+  req.session.email=req.body.googleemail;
+  //res.redirect('/checkemail');
   res.redirect('/socnetworkredirect');
+});
+
+app.get('/checkemail', function(req,res) {
+  request({
+    url: "http://api.eatable.at:5000/users/search/email.json",
+    body: "{ \"email\": \""+req.session.email+"\" }",
+    headers: {"Content-Type": "application/json"},
+    method: "POST"
+  }, function (error, response, body) {
+    // console.log(body);
+    var userobj = JSON.parse(body);
+    req.session.fullname=userobj.name;
+    req.session.userid=userobj.id;
+    res.redirect('/socnetworkredirect');
+  });
 });
 
 app.get('/socnetworkredirect', function(req,res) {
   if ( req.session.token )
     res.redirect('/ui');
-
   else
     res.redirect('/incorrect_credentials');
 });
@@ -236,9 +252,6 @@ app.post('/deleteme?', function(requests,response) {
     headers: {"Content-Type": "application/json"},
     method: "DELETE"
   }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
   });
   response.redirect('/projects');
 });
@@ -249,5 +262,8 @@ app.post('/deleteme?', function(requests,response) {
 
 app.get('/ui', function(req, res) {
   checklogin(req, res);
+  
   requests.food_carousel('recommendations/search', 'ui', res);
+  
+  //requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
 });

@@ -16,9 +16,10 @@ function signinCallback(authResult) {
 
     // populate the hidden form
     document.getElementById('googleinput').value+=authResult['access_token'];
+    getEmail();
     
     // submit the form
-    document.getElementById('googleform').submit();
+    // document.getElementById('googleform').submit();
 
   } else if (authResult['error']) {
     // Update the app to reflect a signed out user
@@ -28,6 +29,19 @@ function signinCallback(authResult) {
     //   "immediate_failed" - Could not automatically log in the user
     console.log('Sign-in state: ' + authResult['error']);
   }
+}
+
+function getEmail() {
+  gapi.client.load('oauth2', 'v2', function() {
+    var request = gapi.client.oauth2.userinfo.get();
+    request.execute(getEmailCallback);
+  });
+}
+
+function getEmailCallback(obj) {
+  var el = document.getElementById('googleemail');
+  el.value=obj['email'];
+  document.getElementById('googleform').submit();
 }
 
 function signoutCallback() {

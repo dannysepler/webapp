@@ -66,7 +66,6 @@ article,
 aside,
 dialog,
 figure,
-footer,
 header,
 hgroup,
 menu,
@@ -206,6 +205,10 @@ acronym {
 -----------------------------------------------------------------------------*/
 header {
   background: #f00060;
+  position: fixed;
+  z-index: 2;
+    /* to make it pop out in front of
+    sticky image in food stream */
 }
 header nav {
   width: 960px;
@@ -237,14 +240,4 @@ header nav ul li a {
 }
 header nav ul li a:hover {
   background-color: #db0d5f;
-}
-/* Footer
------------------------------------------------------------------------------*/
-footer {
-  color: #666;
-  border-top: 1px solid #ccc;
-  padding-top: 1.5em;
-}
-footer ul {
-  list-style: none;
 }

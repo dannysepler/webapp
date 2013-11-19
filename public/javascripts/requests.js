@@ -106,11 +106,13 @@ var vert_carousel=function(link,number,first,second,renbool,renlink,res){
 
 var food_carousel=function(link,renlink,res){
   request({
+    // url: "http://api.eatable.at:5000/"+link+".json",
     url: "http://eatable.apiary.io/"+link+".json",
     body: "{ \"id\": \"21\", \"tree_max\": \"2\" }",
     headers: {"Content-Type": "application/json"},
     method: "POST"
   }, function (error, response, body) {
+    console.log(body);
 
     var end = jsonfunctions.foodstream(body);
 
@@ -120,7 +122,33 @@ var food_carousel=function(link,renlink,res){
         header: end
       }
     });
+  });
+}
 
+var actual_food_carousel=function(link,renlink,userid,res){
+  // console.log(userid);
+
+  request({
+    url: "http://api.eatable.at:5000/"+link+".json",
+    body:"{\"user_id\": \""+userid+"\",\"do_expire\" : \"true\",\"per_page\" : \"20\",\"lat\" : 29.650276,\"lon\" : -82.326793,\"within\" : 5.0 }",
+    headers: {"Content-Type": "application/json", "X-API-Version": "0.2.0-alpha" },
+    method: "POST"
+  }, function (error, response, body) {
+    // console.log(body);
+    var newres = JSON.parse(body);
+    newres = newres.results;
+    console.log(newres);
+
+    var end = jsonfunctions.foodstream(newres);
+
+    res.render(renlink, {
+      title: 'Food Carousel',
+      data: {
+        header: end
+      }
+    });
+    
+    res.render('logout');
   });
 }
 
@@ -136,3 +164,4 @@ module.exports.post_anything= post_anything;
 //module.exports.fb_login     = fb_login;
 module.exports.vert_carousel= vert_carousel;
 module.exports.food_carousel= food_carousel;
+module.exports.actual_food_carousel= actual_food_carousel;

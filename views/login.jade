@@ -11,10 +11,11 @@ block content
 			data-clientid="371573734026.apps.googleusercontent.com"
 			data-cookiepolicy="single_host_origin"
 			data-requestvisibleactions="http://schemas.google.com/AddActivity"
-			data-scope="https://www.googleapis.com/auth/plus.login")
+			data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email")
 
 	form(method="post" action="/googleform" id="googleform")
 		input(type="hidden" id="googleinput" name="googleinfo")
+		input(type="hidden" id="googleemail" name="googleemail")
 
 
 prepend bodyafter
