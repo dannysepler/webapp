@@ -204,6 +204,7 @@ acronym {
 /* Header
 -----------------------------------------------------------------------------*/
 header {
+  width: 100%;
   background: #f00060;
   position: fixed;
   z-index: 2;
@@ -211,12 +212,13 @@ header {
     sticky image in food stream */
 }
 header nav {
-  width: 960px;
+  /*width: 960px; */
   text-align: right;
   margin-left: auto;
   margin-right: auto;
 }
 header nav ul {
+  width:90%;
   list-style: none;
   padding: 10px;
   margin-bottom: 0;
