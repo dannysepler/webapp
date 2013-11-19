@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $('.fade').fadeTo('fast', 0.5);
+
   $('.fade').hover(
     function() {
       $(this).stop().fadeTo('fast', 1);

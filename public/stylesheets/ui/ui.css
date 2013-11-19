@@ -1,3 +1,7 @@
+.fade {
+	opacity: 1;
+}
+
 #sticker {
 	/* background: black; */
   	height: 500px;
@@ -7,8 +11,22 @@
 
 #wrapper {
 	width:500px;
+	margin-left:300px;
+	margin-top:-20px;
 }
 
 #data {
-	margin-top:-400px;
+	height: 800px;
+	width:300px;
+	margin-top:-500px;
+	overflow: auto;
+}
+
+#data div {
+	width:200px;
+}
+
+#data div img {
+	height:200px;
+	width:200px;
 }
