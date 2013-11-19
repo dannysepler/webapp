@@ -1,15 +1,16 @@
 extends layout
 prepend head
-	link(rel='stylesheet', href='/stylesheets/ui/ui.css')
 	//script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
 	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
 
 append after
+	link(rel='stylesheet', href='/stylesheets/ui/ui.css')
 	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
 	script(type='text/javascript', src='/javascripts/ui/jquery_ui.js')
 
+
 block content
-	#wrapper(style="margin-left:300px;margin-top:-20px;")
+	#insidewrapper(style="margin-left:300px;margin-top:-20px;")
 		img(id="sticker" src="http://d8u1nmttd4enu.cloudfront.net/designs/help-eatable-logo-logo-design-99designs_22969277~cfaa0f97d4a8423d3ba5cae09fd0b0f5273d3293_largecrop")
 	div(id="data" style="")
 		!{data.header}

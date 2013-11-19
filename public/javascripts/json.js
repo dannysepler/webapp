@@ -11,9 +11,9 @@ function foodstream( input ) {
 	for (var i = 1; i < count+1; i++) {
 		var object = parsed[i-1];
 		end+="<div class= \"hero-unit\" >";
-			end+="id: "+object.food.id+"<br>";
+			// end+="id: "+object.food.id+"<br>";
 			end+=object.food.name+"<br><br>";
-			//end+=object.food.description+"<br>";		
+			// end+=object.food.description+"<br>";		
 			end+="<img class=\"fade\" src=\""+object.food.image_url+"\" \/>";
 		end+="</div>";
     }

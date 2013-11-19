@@ -9,16 +9,16 @@
   	padding: 5px;
 }
 
-#wrapper {
+#insidewrapper {
 	width:500px;
 	margin-left:300px;
 	margin-top:-20px;
+	position: absolute;
 }
 
 #data {
 	height: 800px;
-	width:300px;
-	margin-top:-500px;
+	width:320px;
 	overflow: auto;
 }
 
@@ -29,4 +29,8 @@
 #data div img {
 	height:200px;
 	width:200px;
+}
+
+.selected {
+	background-color: #00ffff;
 }
