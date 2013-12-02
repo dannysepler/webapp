@@ -134,12 +134,7 @@ var actual_food_carousel=function(link,renlink,userid,res){
     headers: {"Content-Type": "application/json", "X-API-Version": "0.2.0-alpha" },
     method: "POST"
   }, function (error, response, body) {
-    // console.log(body);
-    var newres = JSON.parse(body);
-    newres = newres.results;
-    console.log(newres);
-
-    var end = jsonfunctions.foodstream(newres);
+    var end = jsonfunctions.foodstream(body);
 
     res.render(renlink, {
       title: 'Food Carousel',
@@ -148,7 +143,7 @@ var actual_food_carousel=function(link,renlink,userid,res){
       }
     });
     
-    res.render('logout');
+    //res.render('logout');
   });
 }
 

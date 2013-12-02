@@ -9,8 +9,8 @@ body, html {
 
 #sticker {
 	/* background: black; */
-  	/*height: 500px;
-  	width: 500px; */
+  	height: 500px;
+  	width: 500px;
   	height: 100%;
   	width: 100%;
   	padding: 5px;
@@ -25,6 +25,18 @@ body, html {
 	position: absolute;
 	z-index: 1;
 		/* to make it hide behind header */
+}
+
+#foot {
+	color: white;
+	font-size: 20px;
+	margin-top: -100px;
+	margin-left: 5px;
+	background-color: black;
+	opacity: 0.9;
+	height: 100px;
+	width: 100%;
+	z-index: 3;
 }
 
 #data {

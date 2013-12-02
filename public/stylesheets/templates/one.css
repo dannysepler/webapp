@@ -1,0 +1,70 @@
+#header {
+	/* how about having this
+	appear as if it's on the image
+	like this? http://i.imgur.com/pqVWsQF.png
+	It looks pretty sleek this way. */
+
+	/* outer */
+	height:40px;
+	margin-left:175px;
+	width:80%;
+	background-color: black;
+	float:left;
+	position: fixed;
+	
+	/* inner */
+	color: white;
+	font-size: 20px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#thumbnails {
+	/* outer */
+	height: 491px;
+	width: 175px;
+	background-color: black;
+	float:left;
+	position: fixed;
+
+	/* inner */
+	overflow-y: auto;
+	overflow-x: hidden;
+	color: white;
+}
+	.item {
+		width: 100%;
+		height: 150px;
+		background-color: black;
+	}
+
+		.item img {
+			height: 100%;
+			width: 100%;
+		}
+
+
+
+#bigfood {
+	margin-top:40px;
+	margin-left: 175px;
+	height: 380px;
+	width: 80%;
+	background-color: yellow;
+	float:left;
+	position: fixed;
+}
+
+	.mainimage {
+		height: 100%;
+		width: 100%;
+	}
+
+#popupinfo {
+	margin-top:420px;
+	margin-left: 175px;
+	height: 71px;
+	width: 80%;
+	background-color: red;
+	float:left;
+	position: fixed;
+}

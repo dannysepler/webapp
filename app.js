@@ -263,7 +263,15 @@ app.post('/deleteme?', function(requests,response) {
 app.get('/ui', function(req, res) {
   checklogin(req, res);
   
-  requests.food_carousel('recommendations/search', 'ui', res);
+  //requests.food_carousel('recommendations/search', 'ui', res);
   
-  //requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
+  requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
+});
+
+/*
+      TEMPLATES
+                  */
+
+app.get('/firsttemplate', function(req, res) {
+  res.render('templates/one');
 });
