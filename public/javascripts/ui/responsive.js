@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 	$('.hero-unit').click(function() {
 		var id = this.id;
@@ -12,7 +11,7 @@ $(document).ready(function() {
 				$('#desc').text('No description available');
 		});
 
-		$.ajax({
+		/*$.ajax({
 			//url : 'http://api.eatable.at:5000/foods/search/serves.json',
 			url : 'http://eatableapittest2.apiary.io/foods/search/serves.json',
 			dataType:"json",
@@ -26,10 +25,11 @@ $(document).ready(function() {
 				var address = parsed.location.street+", "+parsed.location.city+" "+parsed.location.state;
 				$('#like').text(parsed.name+" at "+address);
 				//$('#map').text(JSON.stringify(data[0]));
+				initialize(address, parsed.name);
 			},
 			error: function() {
 				//$('#map').text('error...');
 			}
-		});
+		}); */
   	});
 });
