@@ -12,7 +12,6 @@ function vert_carousel(i,body) {
 
 function food_carousel(i,body) {
   var newbod = grab_food_req_v1p1(body, i);
-  //var name1 = stream_food_name(newbod);
   newbod = food_desc(newbod);
   return newbod;
 }
