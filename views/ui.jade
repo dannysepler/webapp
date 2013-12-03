@@ -7,12 +7,19 @@ append after
 	link(rel='stylesheet', href='/stylesheets/ui/ui.css')
 	script(type="text/javascript",src="/javascripts/jquery_plugins/sticky.js")
 	script(type='text/javascript', src='/javascripts/ui/jquery_ui.js')
+	script(type='text/javascript', src='/javascripts/ui/responsive.js')
+
+	// initialize google maps
+	script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGWNkYwP2hY2JqfLeiYooGi1K7eOoAXDY&sensor=false")
 
 
 block content
 	#insidewrapper(style="margin-left:270px;")
 		img(id="sticker" src="http://d8u1nmttd4enu.cloudfront.net/designs/help-eatable-logo-logo-design-99designs_22969277~cfaa0f97d4a8423d3ba5cae09fd0b0f5273d3293_largecrop")
-		#foot this dish is delish
+		#foot
+			#map-canvas
+			#desc description
+			#like Do you like it?
 
 	div(id="data" style="")
 		!{data.header}
