@@ -1,0 +1,30 @@
+html
+	head
+		title= title
+		
+		link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+		link(rel='stylesheet',href='/stylesheets/home/base.css')
+
+		script(type='text/javascript', src='http://code.jquery.com/jquery-2.0.3.min.js')
+		script(type='text/javascript', src='/javascripts/bootstrap.js')
+		script(type='text/javascript', src='/javascripts/home/scroll.js')
+	
+	body
+
+		.btn-group
+			button.btn.btn-default(type="button")
+				a(href="#1") Top
+
+			button.btn.btn-default(type="button") 
+				a(href="#2") Who we are
+
+			button.btn.btn-default(type="button") 
+				a(href="#3") How we work
+
+		#content(data-spy="scroll" data-target="#navbar")
+			section#1.page
+				img(src="http://img.eatable.at/stock_sandwich.jpg")
+			section#2.page
+				img(src="http://img.eatable.at/stock_pasta.jpg")
+			section#3.page
+				img(src="http://img.eatable.at/stock_salad.jpg")

@@ -16,12 +16,26 @@ append after
 	// restaurant
 	script(type='text/javascript', src='/javascripts/ui/restaurant.js')
 
+block dropper
+	.dropdown
+		button.btn.btn-default.dropdown-toggle#dropdownMenu1(data-toggle="dropdown") How far away?
+			span.caret
+
+		ul.dropdown-menu(role="menu" aria-labelledby="dropdownMenu1")
+			li(role="presentation")
+				a(role="menuitem" tabindex="-1" href="#crawl") Crawl (<1 block)
+			li(role="presentation")
+				a(role="menuitem" tabindex="-1" href="#walk") Walk (1-5 blocks)
+			li(role="presentation")
+				a(role="menuitem" tabindex="-1" href="#bike") Bike (5-10 blocks)
+			li(role="presentation")
+				a(role="menuitem" tabindex="-1" href="#drive") Drive (10+ blocks)
 
 block content
 	#insidewrapper(style="margin-left:270px;")
 		#restaurant venue
 
-		img(id="sticker" src="http://d8u1nmttd4enu.cloudfront.net/designs/help-eatable-logo-logo-design-99designs_22969277~cfaa0f97d4a8423d3ba5cae09fd0b0f5273d3293_largecrop")
+		img(id="sticker" src="/images/logo.png")
 
 		#venuetab
 		

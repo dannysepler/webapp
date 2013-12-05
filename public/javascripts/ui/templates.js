@@ -15,4 +15,7 @@ $(document).ready(function() {
     var imgSrc = $('img', this).attr("src");
     $('.mainimage').attr('src',imgSrc);
   });
+
+  $('.dropdown-toggle').dropdown();
+  
 });

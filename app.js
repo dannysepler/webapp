@@ -269,9 +269,14 @@ app.get('/ui', function(req, res) {
 });
 
 /*
-      TEMPLATES
+      DESIGNS
                   */
 
 app.get('/firsttemplate', function(req, res) {
   res.render('templates/one');
+});
+
+  // new home page
+app.get('/home', function(req, res) {
+  res.render('home');
 });

@@ -3,10 +3,11 @@ html(itemscope itemtype="http://schema.org/Article")
   block head
 
   head
-    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
     link(rel='stylesheet', href='/stylesheets/style2.css')
     script(type='text/javascript', src='http://code.jquery.com/jquery-2.0.3.min.js')
+    script(type='text/javascript', src='/javascripts/bootstrap.js')
     //script(type='text/javascript', src='/javascripts/ui/jquery_ui.js')
 
   block after
@@ -16,14 +17,18 @@ html(itemscope itemtype="http://schema.org/Article")
     block body
     
     header
-      nav
-        ul
-          li 
-            a(href="/") Home
-          li
-            a(href="/ui") UI
-          li
-            a(href="/projects") Projects
+    
+    //  nav
+    //    ul
+    //      li 
+    //        a(href="/") Home
+    //      li
+    //        a(href="/ui") UI
+    //      li
+    //        a(href="/projects") Projects
+    
+    block dropper
+
     section#wrapper
       block content
 

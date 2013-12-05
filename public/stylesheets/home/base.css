@@ -1,0 +1,15 @@
+html {
+	position: absolute;
+	/* want everything to stand
+	over the images */
+}
+
+.btn-group {
+	position: fixed;
+}
+
+img {
+	position: relative;
+	height: 1000px;
+	width: 1000px;
+}
