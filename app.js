@@ -91,8 +91,8 @@ function checklogin( req, res ) {
 }
 
 app.get('/', function(req, res){
-  res.render('template', {
-    title: 'Home'
+  res.render('templates/home1.html', {
+    title: 'Eatable'
   });
 });
 
