@@ -243,7 +243,7 @@ img {
 	font-size:40px;
 	margin-bottom:20px;
 	background-attachment: scroll;
-	background-image: url('../images/divider1.png');
+	background-image: url('http://img.eatable.at/stock_salad.jpg');
 	background-repeat: repeat-x;
 	background-position: center center;
 	text-transform:uppercase;
@@ -288,7 +288,7 @@ img {
 }
 .hero-title-holder {
 	background-attachment: scroll;
-	background-image: url('../images/divider1.png');
+	background-image: url('http://img.eatable.at/stock_salad.jpg');
 	background-repeat: repeat-x;
 	background-position: top center;
 	display:inline-block;
@@ -337,7 +337,7 @@ img {
 	background:rgba(255, 255, 255, 0.15);
 }
 .hero-poster-image {
-	background:url('../images/parallax-banner-1.jpg');
+	background:url('http://img.eatable.at/stock_salad.jpg');
 	background-repeat:no-repeat;
 	background-size:cover;
 	width:100%;
@@ -728,8 +728,8 @@ img {
 }
 .ut-rotate-quote .flex-direction-nav {*height: 0; list-style:none;}
 .ut-rotate-quote .flex-direction-nav a  { display: block; text-indent:-9999px; width: 40px; height: 40px; margin: -110px 0 0; position: absolute; top: -50%; z-index: 10; overflow: hidden; opacity: 0; cursor: pointer; color: rgba(255,255,255,0.9); -webkit-transition: all .3s ease; -moz-transition: all .3s ease; transition: all .3s ease; }
-.ut-rotate-quote .flex-direction-nav .flex-prev { left: -50px; background-image:url(../images/arrow-left-black.png); background-repeat:no-repeat; }
-.ut-rotate-quote .flex-direction-nav .flex-next { right: -50px; background-image:url(../images/arrow-right-black.png); background-repeat:no-repeat;  }
+.ut-rotate-quote .flex-direction-nav .flex-prev { left: -50px; background-image:url(http://img.eatable.at/stock_salad.jpg); background-repeat:no-repeat; }
+.ut-rotate-quote .flex-direction-nav .flex-next { right: -50px; background-image:url(http://img.eatable.at/stock_salad.jpg); background-repeat:no-repeat;  }
 .ut-testimonials:hover .ut-rotate-quote .flex-prev { opacity: 0.7; left: 10px; }
 .ut-testimonials:hover .ut-rotate-quote .flex-next { opacity: 0.7; right: 10px; }
 .ut-testimonials:hover .ut-rotate-quote .flex-next:hover, 
@@ -849,7 +849,7 @@ img {
 	margin-bottom:20px;
 	color:#FFFFFF;
 	background-attachment: scroll;
-	background-image: url('../images/divider1.png');
+	background-image: url('http://img.eatable.at/stock_salad.jpg');
 	background-repeat: repeat-x;
 	background-position: top center;
 	padding-top:20px;
@@ -889,22 +889,22 @@ img {
 .parallax-background.fixed {
 	background-attachment: fixed !important;
 }
-.parallax-banner-1 { background:url('../images/parallax-banner-1.jpg'); background-position: center center; }
-.parallax-banner-2 { background:url('../images/parallax-banner-2.jpg'); background-position: center center; }
-.parallax-banner-3 { background:url('../images/parallax-banner-3.jpg'); }
-.parallax-banner-4 { background:url('../images/parallax-banner-4.jpg'); background-position:center bottom !important; }
-.parallax-banner-5 { background:url('../images/parallax-banner-5.jpg'); }
-.parallax-banner-6 { background:url('../images/parallax-banner-6.jpg'); }
-.parallax-banner-7 { background:url('../images/404.jpg'); }
+.parallax-banner-1 { background:url('http://img.eatable.at/stock_salad.jpg'); background-position: center center; }
+.parallax-banner-2 { background:url('http://img.eatable.at/stock_salad.jpg'); background-position: center center; }
+.parallax-banner-3 { background:url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-banner-4 { background:url('http://img.eatable.at/stock_salad.jpg'); background-position:center bottom !important; }
+.parallax-banner-5 { background:url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-banner-6 { background:url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-banner-7 { background:url('http://img.eatable.at/stock_salad.jpg'); }
 
 
-.parallax-overlay-1 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-2 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-3 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-4 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-5 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-6 { background-image: url('../images/overlay-pattern.png'); }
-.parallax-overlay-7 { background-image: url('../images/overlay-pattern.png'); }
+.parallax-overlay-1 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-2 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-3 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-4 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-5 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-6 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
+.parallax-overlay-7 { background-image: url('http://img.eatable.at/stock_salad.jpg'); }
 
 .parallax-overlay {
 	position:absolute;
