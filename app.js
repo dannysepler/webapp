@@ -55,19 +55,9 @@ app.use(express.methodOverride());
 app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*
-app.use(express.cookieParser());
-app.use(express.session({secret: '12345'}));
-app.use(app.router);
-*/
-
-/*app.configure('development', function(){
-  app.use(express.errorHandler());
-  app.locals.pretty = true;
-  app.use(express.cookieParser());
-  app.use(express.session({secret: '12345'}));
-  app.use(flash());
-});*/
+/* for the html files */
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
 
 app.configure(function() {
   app.use(express.static('public'));
@@ -279,4 +269,8 @@ app.get('/firsttemplate', function(req, res) {
   // new home page
 app.get('/home', function(req, res) {
   res.render('home');
+});
+
+app.get('/template', function(req,res) {
+  res.render('templates/home1.html');
 });

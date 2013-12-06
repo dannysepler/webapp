@@ -9,8 +9,7 @@ html
 		script(type='text/javascript', src='/javascripts/bootstrap.js')
 		script(type='text/javascript', src='/javascripts/home/scroll.js')
 	
-	body
-
+	//body
 		.btn-group
 			button.btn.btn-default(type="button")
 				a(href="#1") Top
@@ -22,9 +21,30 @@ html
 				a(href="#3") How we work
 
 		#content(data-spy="scroll" data-target="#navbar")
-			section#1.page
+			section#1.page(data-type="background" data-speed="1")
 				img(src="http://img.eatable.at/stock_sandwich.jpg")
+
+			#start
+				h1 Start eating right
+					
+				button.btn.btn-primary
+					a(href="/login") Sign up
+
 			section#2.page
 				img(src="http://img.eatable.at/stock_pasta.jpg")
+
+			#who
+				h1 Who we are
+
 			section#3.page
 				img(src="http://img.eatable.at/stock_salad.jpg")
+
+			#how
+				h1 How we work
+
+	body
+		section#home.pages(data-type="background" data-speed="10")
+			<article>I am absolute positioned</article>
+     
+		section#about.pages(data-type="background" data-speed="10")
+			article Simple Parallax Scroll
