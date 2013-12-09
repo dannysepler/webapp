@@ -12,14 +12,11 @@ var request = require('request');
 var util = require('util');
 var app = express();
 
-//var connect = require('connect'),
-//  flash = require('connect-flash');
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // WHERE ARE ALL OUR FUNCTIONS ARE STORED
 
 var functions = require('./public/javascripts/functions.js');
-var requests = require('./public/javascripts/requests.js');
+var carousel = require('./public/javascripts/carousel_req.js');
 var googlefoot = require('./public/javascripts/projects/social/googlefoot.js')
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,7 +115,7 @@ app.get('/socnetworkredirect', function(req,res) {
 
 app.get('/ui', function(req, res) {
   checklogin(req, res);  
-  requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
+  carousel.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
 });
 
 app.post('/signout', function(req,res) {

@@ -93,14 +93,20 @@ body, html {
 }
 
 #venuetab { /* this has the restaurant info */
+	
+	color: black;
 	overflow-y: auto;
 	height: 355px;
 	width: 60%;
-	background-color: lightblue;
+	background-color: #CC3300;
 	margin-top: -505px;
 	margin-left: 5px;
 	position: fixed;
 	z-index: 5;
+}
+
+#venuetab h1 {
+	color: black;
 }
 
 #like {
