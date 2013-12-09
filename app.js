@@ -12,8 +12,8 @@ var request = require('request');
 var util = require('util');
 var app = express();
 
-var connect = require('connect'),
-  flash = require('connect-flash');
+//var connect = require('connect'),
+//  flash = require('connect-flash');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // WHERE ARE ALL OUR FUNCTIONS ARE STORED
@@ -22,26 +22,8 @@ var functions = require('./public/javascripts/functions.js');
 var requests = require('./public/javascripts/requests.js');
 var googlefoot = require('./public/javascripts/projects/social/googlefoot.js')
 
-//var login = require('./public/javascripts/projects/social/fb-pic-head.js');
-  //var temp; // for use with login
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-//PASSPORT VARIABLIES
-var passport = require('passport')
-
-//  , LocalStrategy = require('passport-local').Strategy
-
-  , OpenIDStrategy = require('passport-openid').Strategy
-      // OpenID is necessary for Google Authentication
-
-  , OAuth2Strategy = require('passport-oauth').OAuth2Strategy
-  , GoogleStrategy = require('passport-google').Strategy;
-
-//var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var GOOGLE_CLIENT_ID = "371573734026.apps.googleusercontent.com";
-var GOOGLE_CLIENT_SECRET = "3q9pFap6DnUiC0J3CaVJKrqW";
-var FacebookStrategy = require('passport-facebook').Strategy;
 
 // all environments
 app.set('port', process.env.PORT || 3001);
@@ -64,8 +46,6 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.session({secret: '12345'}));
-  app.use(passport.initialize());
-  app.use(passport.session());
   app.use(app.router);
 });
 
@@ -74,131 +54,71 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/users', user.list);
-
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+/*
+    This webapp uses tokens to store 
+    whether a user is logged in. The 
+    token is the user's name. The app 
+    does not use that information as 
+    of yet.
+
+    The token can be found at 
+    'req.session.token'
+
+                                        */
+
 // <---------------------------------->
-//              GETTING PAGES
+//              USED PAGES
 // <---------------------------------->
 
 function checklogin( req, res ) {
-  if ( !req.session.token )
-    res.redirect('/loginredirect');
+  if ( !req.session.token ) res.redirect('/loginredirect');
 }
 
 app.get('/', function(req, res){
-  res.render('templates/home1.html', {
-    title: 'Eatable'
-  });
+  res.render('templates/home1.html', {title: 'Eatable'});
 });
 
 app.get('/g', function(req, res){
-  res.render('google', {
-    title: 'Google'
-  });
+  res.render('google', {title: 'Google'});
+});
+
+app.post('/googleform', function(req,res) {
+    /* 
+        info is posted from the 'google'
+        page 
+    */
+
+  req.session.token=req.body.googleinfo;
+  req.session.email=req.body.googleemail;
+  //res.redirect('/checkemail');
+  res.redirect('/socnetworkredirect');
 });
 
 app.get('/login', function(req, res){
-  res.render('login', {
-    title: 'Login'
-  });
+  res.render('login', {title: 'Login'});
 });
 
 app.get('/loginredirect', function(req, res){
-  res.render('loginredirect', {
-    title: 'Please Login'
-  });
+  res.render('loginredirect', {title: 'Please Login'});
 });
 
 app.get('/projects', function(req, res){
   checklogin(req, res);
-  res.render('projects/index', {
-    title: 'Projects'
-  });
+  res.render('projects/index', {title: 'Projects'});
 });
 
-// MAPS
-
-app.get('/projects/maps/full', function(req, res){
-  res.render('projects/maps/full', {
-    title: 'Map | Fullscreen'
-  });
+app.get('/socnetworkredirect', function(req,res) {
+  if ( req.session.token ) res.redirect('/ui');
+  else res.redirect('/incorrect_credentials');
 });
 
-app.get('/projects/maps/simple', function(req, res){
-  res.render('projects/maps/simple', {
-    title: 'Map | Simple'
-  });
-});
-
-app.get('/projects/maps/geo', function(req, res){
-  res.render('projects/maps/geo', {
-    title: 'Map | Current Location'
-  });
-});
-
-
-app.get('/projects/maps/directions', function(req, res){
-  res.render('projects/maps/directions', {
-    title: 'Map | Directions with Options (Inputted)'
-  });
-});
-
-app.get('/projects/maps/street_simple', function(req, res){
-  res.render('projects/maps/street_simple', {
-    title: 'Map | Street View'
-  });
-});
-
-// SOCIAL
-
-app.get('/projects/social/fb/picture', function(req, res){
-  res.render('projects/social/fb/picture', {
-    title: 'Social | Facebook Picture'
-  });
-});
-
-app.get('/projects/social/fb/like', function(req, res){
-  res.render('projects/social/fb/like', {
-    title: 'Social | Like Button'
-  });
-});
-
-app.get('/projects/social/fb/login', function(req, res){
-  res.render('projects/social/fb/login', {
-    title: 'Social | Login Test'
-  });
-});
-
-// CORS
-app.get('/projects/cors/cities', function(req, res){
-  res.render('projects/cors/cities', {
-    title: 'CORS | Cities'
-  });
-});
-
-app.post('/projects/cors/cities', function(requests,response) {
-  request({
-    url: "http://api.eatable.at:5000/cities.json",
-    body: login.LoginwReturn(),
-    headers: {"Content-Type": "application/json"},
-    method: "POST"
-  }, function (error, response, body) {
-    console.log("Status", response.statusCode);
-    console.log("Headers", JSON.stringify(response.headers));
-    console.log("Response received", body);
-
-  });
-  response.redirect('/');
-});
-
-app.get('/logout', function(req,res) {
-  res.render('logout', {
-    title: 'Log out'
-  });
+app.get('/ui', function(req, res) {
+  checklogin(req, res);  
+  requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
 });
 
 app.post('/signout', function(req,res) {
@@ -206,14 +126,84 @@ app.post('/signout', function(req,res) {
   res.redirect('/');
 });
 
-app.post('/googleform', function(req,res) {
-  req.session.token=req.body.googleinfo;
-  req.session.email=req.body.googleemail;
-  //res.redirect('/checkemail');
-  res.redirect('/socnetworkredirect');
+app.get('/logout', function(req,res) {
+  res.render('logout', {title: 'Log out'});
+});
+
+/*
+      DESIGNS
+                  */
+
+app.get('/firsttemplate', function(req, res) {
+    // template for food stream. resembles current one
+    // pretty closely
+
+  res.render('templates/one');
+});
+
+app.get('/home', function(req, res) {
+    // ugly home page, used only in dev
+  
+  res.render('home');
+});
+
+app.get('/template', function(req,res) {
+    // taken from template
+  
+  res.render('templates/home1.html');
+});
+
+/* 
+      PAGES FOR REFERENCE 
+                            */
+
+// ----
+// MAPS
+// ----
+
+app.get('/projects/maps/full', function(req, res){
+  res.render('projects/maps/full', {title: 'Map | Fullscreen'});
+});
+
+app.get('/projects/maps/simple', function(req, res){
+  res.render('projects/maps/simple', {title: 'Map | Simple'});
+});
+
+app.get('/projects/maps/geo', function(req, res){
+  res.render('projects/maps/geo', {title: 'Map | Current Location'});
+});
+
+
+app.get('/projects/maps/directions', function(req, res){
+  res.render('projects/maps/directions', {title: 'Map | Directions with Options (Inputted)'});
+});
+
+app.get('/projects/maps/street_simple', function(req, res){
+  res.render('projects/maps/street_simple', {title: 'Map | Street View'});
+});
+
+// ------
+// SOCIAL
+// ------
+
+app.get('/projects/social/fb/picture', function(req, res){
+  res.render('projects/social/fb/picture', {title: 'Social | Facebook Picture'});
+});
+
+app.get('/projects/social/fb/like', function(req, res){
+  res.render('projects/social/fb/like', {title: 'Social | Like Button'});
+});
+
+app.get('/projects/social/fb/login', function(req, res){
+  res.render('projects/social/fb/login', {title: 'Social | Login Test'});
 });
 
 app.get('/checkemail', function(req,res) {
+  /* 
+      this method checks to see if a user's email
+      already exists in our database
+  */
+
   request({
     url: "http://api.eatable.at:5000/users/search/email.json",
     body: "{ \"email\": \""+req.session.email+"\" }",
@@ -228,48 +218,17 @@ app.get('/checkemail', function(req,res) {
   });
 });
 
-app.get('/socnetworkredirect', function(req,res) {
-  if ( req.session.token )
-    res.redirect('/ui');
-  else
-    res.redirect('/incorrect_credentials');
-});
-
 app.post('/deleteme?', function(requests,response) {
+    /* 
+        this post method deletes users. I use it
+        when I'm testing the creation of new users
+    */
+  
   request({
     url: "http://api.eatable.at:5000/users/8474.json",
     headers: {"Content-Type": "application/json"},
     method: "DELETE"
-  }, function (error, response, body) {
-  });
+  }, function (error, response, body) {});
+  
   response.redirect('/projects');
-});
-
-/*    _____-------______-----_____-----___
-                UI Page's stuff
-      -----_______------_____-----_____--- */
-
-app.get('/ui', function(req, res) {
-  checklogin(req, res);
-  
-  //requests.food_carousel('recommendations/search', 'ui', res);
-  
-  requests.actual_food_carousel('recommendations/search', 'ui', req.session.userid, res);
-});
-
-/*
-      DESIGNS
-                  */
-
-app.get('/firsttemplate', function(req, res) {
-  res.render('templates/one');
-});
-
-  // new home page
-app.get('/home', function(req, res) {
-  res.render('home');
-});
-
-app.get('/template', function(req,res) {
-  res.render('templates/home1.html');
 });
