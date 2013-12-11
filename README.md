@@ -61,7 +61,7 @@ var routes = require('./routes');
 
 A typical render screen looks like this:
 
-'''javascript
+'''
 app.get('/login', function(req, res){
   	/* whenever the user goes to "http://app.eatable.at/login" */
 
@@ -74,7 +74,7 @@ app.get('/login', function(req, res){
 
 You can also write some code in between getting the page and rendering it. I do this most often to check if the user is logged in.
 
-'''javascript
+'''
 app.get('/amiloggedin', function(req, res){
 	checkLoginStatus();
 	res.render('yup!');
