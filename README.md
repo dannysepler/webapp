@@ -35,15 +35,15 @@ Let's get started.
 
 ### The app.js file
 
-[Requiring Packages]('#requiring-packages')
-[Requiring Routes]('#requiring-routes')
-[Rendering]('#rendering')
-[Redirecting]('#redirecting')
-[Posting Forms]('#posting-forms')
-[Getting with Request]('#getting-with-request')
-[Posting with Request]('#posting-with-request')
+[Requiring Packages](#requiring-packages)
+[Requiring Routes](#requiring-routes)
+[Rendering](#rendering)
+[Redirecting](#redirecting)
+[Posting Forms](#posting-forms)
+[Getting with Request](#getting-with-request)
+[Posting with Request](#posting-with-request)
 
-##### Requiring Packages:
+##### Requiring Packages
 
 The packages I use are [express](http://expressjs.com/), [request](https://github.com/mikeal/request), [nodemon](https://github.com/remy/nodemon). In the future, I might add [passport](http://passportjs.org/) for social network authentications.
 
