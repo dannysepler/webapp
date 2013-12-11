@@ -35,12 +35,12 @@ Let's get started.
 
 ### The app.js file
 
-[Requiring Packages](#requiring-packages)
-[Requiring Routes](#requiring-routes)
-[Rendering](#rendering)
-[Redirecting](#redirecting)
-[Posting Forms](#posting-forms)
-[Getting with Request](#getting-with-request)
+[Requiring Packages](#requiring-packages) <br/>
+[Requiring Routes](#requiring-routes) <br/>
+[Rendering](#rendering) <br/>
+[Redirecting](#redirecting) <br/>
+[Posting Forms](#posting-forms) <br/>
+[Getting with Request](#getting-with-request) <br/>
 [Posting with Request](#posting-with-request)
 
 ##### Requiring Packages
