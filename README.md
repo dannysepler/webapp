@@ -2,12 +2,12 @@
 
 ### We eat in style
 
-[Eatable.at](http://eatable.at)
+[The website](http://app.eatable.at)
 
 Table of contents:
 
 * [Before running the app](#before-running-the-app)
-* [The app.js file](#the-app.js-file)
+* [The app.js file](#the-appjs-file)
 * [Views](#views)
 * [Stylesheets](#stylesheets)
 * [Javascripts](#javascripts)
@@ -35,9 +35,51 @@ Let's get started.
 
 ### The app.js file
 
-This file has several key functions:
+#### Requiring things
 
-###### Routing
+##### Packages:
+
+The packages I use are [express](http://expressjs.com/), [request](https://github.com/mikeal/request), [nodemon](https://github.com/remy/nodemon). In the future, I might add [passport](http://passportjs.org/) for social network authentications.
+
+Requring a package is pretty straightforward.
+
+'''javascript
+var express = require('express');
+'''
+
+Easy!
+
+##### Routes:
+
+Although I don't use this now, routes will become very helpful for when we start adding a lot of pages.
+
+'''javascript
+var routes = require('./routes');
+'''
+
+##### Routing
+
+A typical render screen looks like this:
+
+'''javascript
+app.get('/login', function(req, res){
+  	/* whenever the user goes to "http://app.eatable.at/login" */
+
+  res.render('login');
+  	/* the app renders the 'login.jade' file */
+
+  	/* if html, render it like: "res.render('login.html');" */
+});
+'''
+
+You can also write some code in between getting the page and rendering it. I do this most often to check if the user is logged in.
+
+'''javascript
+app.get('/amiloggedin', function(req, res){
+	checkLoginStatus();
+	res.render('yup!');
+});
+'''
 
 ---
 
