@@ -152,7 +152,8 @@ This is where the HTML and Jade is stored.
 
 [Jade Essentials](#jade-essentials) <br/>
 [Jade Templates](#jade-templates) <br/>
-[Routing](#routing-views)
+[Routing](#routing-with-views) <br/>
+[Fallbacks](#fallbacks)
 
 ##### Jade Essentials
 
@@ -188,13 +189,92 @@ html
 			button.dont(value="let" name="me") Down!
 ```
 
-As you can see, classes are turned into dots and IDs are turned into hashtags. If a div has an ID or class, you can omit the word "div" from the declaration. Also, instead of <> brackets, Jade uses parentheses to give HTML objects their values.
+As you can see, classes are turned into dots and IDs are turned into hashtags. If a div has an ID or class, you can omit the word "div" from the declaration. Also, instead of < > brackets, Jade uses parentheses to give HTML objects their values.
 
 Because it's still new, Jade can be a little hard to understand and find good documentation fod sometimes. Even though this can be annoying, I suggest sticking through the ruts because it's a good language that's really helped me write quickly and effectively.
 
 ##### Jade Templates
 
-This is an awesome benefit of using Jade.
+This is an awesome benefit of using Jade. You won't have to link all of the same stylesheets or scripts in each page of the app. Instead, you can do something like this:
+
+layout.jade
+```
+html
+	head
+		link(type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.css")
+		script(src="/javascripts/bootstrap.js")
+```
+and inherit all of these attributes with this command on any page: `extends layout`
+
+In actual practice, it looks like this:
+
+layout.jade
+```
+html
+	head
+		block prepend-head
+
+		link(type="text/css" rel="stylesheet" href="/stylesheets/bootstrap.css")
+		link(type="text/css" rel="stylesheet" href="/stylesheets/ui.css")
+		link(type="text/css" rel="stylesheet" href="/stylesheets/corrections.css")
+
+		script(src="/javascripts/bootstrap.js")
+		script(src="/javascripts/jquery.js")
+		script(src="/javascripts/modernizr.js")
+		script(src="/javascripts/ui.js")
+
+		block append-head
+
+	body
+		header
+			// code
+
+		block content
+		
+		footer
+			// code
+```
+
+Notice the `block`s littered throughout the file. These allow us to add things wherever one of these blocks is located.
+
+A file that inherits from this might look like:
+
+about-me.jade
+```
+inherits layout
+	// needs to go at beginning
+
+block prepend-head
+	// you can add to blocks in the head
+	// this will place these elements in the beginning of the head
+	title Hello, World!
+	meta description
+
+block append-head
+	// this will place elements in the end of the head
+	script(src="/javascripts/google-analytics.js")
+	script(src="/javascripts/facebook-login.js")
+
+block content
+	h1 Just a little info about your fine self!
+	div
+		form
+			input name
+			input email
+			button(type="submit")
+```
+
+##### Routing with Views
+
+Just a few notes:
+* Make sure to put all jade and html in the views folder
+* When getting these pages from the 'app.js' file, if you write `res.render('aboutme');`, the program will automatically know to look in the views folder
+
+##### Fallbacks
+
+As with anything, Jade has some problems that I'm looking to solutions for. If I find any good things, I'll update this page. My least favorite part concerns commenting. 
+
+Commenting is a little frustrating, considering that the ` /* stuff */ ` comments don't exist in Jade. All comments have to be of the ` // stuff ` form. Which doesn't allow me to comment out inner parts of a line
 
 ---
 
