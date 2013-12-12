@@ -280,10 +280,26 @@ Commenting is a little frustrating, considering that the ` /* stuff */ ` comment
 
 ### Stylesheets
 
+This section is pretty short, because the stylesheets are straightforward. (By the way, all CSS docs are located in the "/public/stylesheets" folder)
+
+##### Linking to stylesheets:
+
+Simple, just specify it's in the "stylesheets" folder like so: `link(href="/stylesheets/cssdoc.css")`
+
+##### What does "style2.css" do?
+
+This was taken from a tutorial online. I will slowly be zoning out this stylesheet. Hopefully when the alpha comes out, it won't use this stylesheet at all.
 
 ---
 
 ### Javascripts
 
+[The UI page](#the-ui-page)
+
+###### The UI page
+
+The server-side code for this site can be seen on the "/public/javascripts/json.js" and "/public/javascripts/functions.js". The client-side code, as well as the google maps integration, can be found in the "/public/javascripts/ui" folder.
+
+[Quick link back to functions involving request!](#getting-with-request)
 
 ---

@@ -1,5 +1,6 @@
 var request = require('request');
 var jsonfunctions = require('./json.js');
+var functions = require('./functions.js');
 
 var actual_food_carousel=function(link,renlink,userid,res){
   request({
@@ -9,7 +10,7 @@ var actual_food_carousel=function(link,renlink,userid,res){
     method: "POST"
   }, function (error, response, body) {
     var end = jsonfunctions.foodstream(body);
-
+    
     // render it!
     res.render(renlink, {
       title: 'Food Carousel',
