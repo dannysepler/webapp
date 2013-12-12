@@ -79,8 +79,10 @@ You can also write some code in between getting the page and rendering it. I do 
 
 ```
 app.get('/am_i_logged_in', function(req, res){
-	checkLoginStatus();
-	res.render('yup!');
+	if ( loggedIn() )
+		res.render('yup!');
+	else 
+		res.render('nope!');
 });
 ```
 
