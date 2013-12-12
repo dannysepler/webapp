@@ -121,7 +121,7 @@ When you post a form, most of the time you'll be using request to [submit this i
 
 ##### Getting with Request
 
-This is very easy. I suggest copying and pasting any necessary code out the [apiary](http://apiary.io/).
+This is very easy. I suggest copying and pasting any necessary code from the [apiary](http://apiary.io/).
 
 ##### Posting with Request
 
@@ -135,7 +135,8 @@ app.post('/link', function(req, res) {
 		headers: {"Content-Type": "application/json"},
 		method: "POST"
 	}, function (error, response, body) {
-		/* anthing else you want to do goes here. information that bounces back to you is accessible through a json object called 'body' */
+		/* anthing else you want to do goes here. information that bounces 
+		back to you is accessible through a json object called 'body' */
 
 		console.log( JSON.parse(body) );
 	});
@@ -147,12 +148,62 @@ app.post('/link', function(req, res) {
 
 ### Views
 
+This is where the HTML and Jade is stored.
+
+[Jade Essentials](#jade-essentials)
+[Jade Templates](#jade-templates)
+[Routing](#routing-views)
+
+##### Jade Essentials
+
+Jade is like a super minimalist HTML. The best resources I found for it are its [documentation](http://jade-lang.com/) and this [html-jade converter](http://html2jade.aaron-powell.com/).
+
+Jade helps you to write HTML as cleanly and quickly as possible. It's a great product. Here's a side-by-side comparison of HTML and Jade.
+
+HTML:
+```
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Beatz</title>
+		<script src="/dropthebass.js"></script>
+	</head>
+	<body>
+		<div class="hey" id="jude">
+			<button class="dont" value="let" name="me">Down!</button>
+		</div>
+	</body>
+</html>
+```
+
+JADE:
+```
+!!! 5
+html
+	head
+		title Beatz
+		script(src="/dropthebass.js")
+	body
+		.hey#jude
+			button.dont(value="let" name="me") Down!
+```
+
+As you can see, classes are turned into dots and IDs are turned into hashtags. If a div has an ID or class, you can omit the word "div" from the declaration. Also, instead of <> brackets, Jade uses parentheses to give HTML objects their values.
+
+Because it's still new, Jade can be a little hard to understand and find good documentation fod sometimes. Even though this can be annoying, I suggest sticking through the ruts because it's a good language that's really helped me write quickly and effectively.
+
+##### Jade Templates
+
+This is an awesome benefit of using Jade.
+
 ---
 
 ### Stylesheets
 
+
 ---
 
 ### Javascripts
+
 
 ---
