@@ -1,5 +1,7 @@
 # **Eatable Webapp**
 
+![Logo](http://app.eatable.at/images/logo.png)
+
 ### We eat in style
 
 [The website](http://app.eatable.at)
@@ -293,8 +295,6 @@ This was taken from a tutorial online. I will slowly be zoning out this styleshe
 ---
 
 ### Javascripts
-
-[The UI page](#the-ui-page)
 
 ###### The UI page
 
