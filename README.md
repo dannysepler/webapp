@@ -4,7 +4,7 @@
 
 [The website](http://app.eatable.at)
 
-Table of contents:
+** Table of contents: **
 
 * [Before running the app](#before-running-the-app)
 * [The app.js file](#the-appjs-file)
@@ -150,8 +150,8 @@ app.post('/link', function(req, res) {
 
 This is where the HTML and Jade is stored.
 
-[Jade Essentials](#jade-essentials)
-[Jade Templates](#jade-templates)
+[Jade Essentials](#jade-essentials) <br/>
+[Jade Templates](#jade-templates) <br/>
 [Routing](#routing-views)
 
 ##### Jade Essentials
