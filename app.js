@@ -55,17 +55,14 @@ http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-/*
-    This webapp uses tokens to store 
+/*  This webapp uses tokens to store 
     whether a user is logged in. The 
     token is the user's name. The app 
     does not use that information as 
     of yet.
 
     The token can be found at 
-    'req.session.token'
-
-                                        */
+    'req.session.token' */
 
 // <---------------------------------->
 //              USED PAGES
@@ -132,21 +129,18 @@ app.get('/logout', function(req,res) {
                   */
 
 app.get('/firsttemplate', function(req, res) {
-    // template for food stream. resembles current one
-    // pretty closely
-
+    /* template for food stream. resembles current one
+     pretty closely */
   res.render('templates/one');
 });
 
 app.get('/home', function(req, res) {
-    // ugly home page, used only in dev
-  
+    /* ugly home page, used only in dev */
   res.render('home');
 });
 
 app.get('/template', function(req,res) {
-    // taken from template
-  
+    /* taken from template */
   res.render('templates/home1.html');
 });
 

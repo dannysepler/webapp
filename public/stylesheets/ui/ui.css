@@ -2,19 +2,12 @@
 food stream is loaded */
 
 body, html {
-	overflow: hidden;
-	overflow-y: hidden;
+	overflow: hidden; overflow-y: hidden;
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-.dropdown {
-	color: white;
-	float: left;
-}
-
-.fade {
-	opacity: 1;
-}
+.dropdown { color: white; float: left; }
+.fade { opacity: 1; }
 
 #sticker {
   	height: 500px;
@@ -22,7 +15,7 @@ body, html {
   	padding: 5px;
 }
 
-#restaurant {		/* this is the button */
+#restaurant {	/* this is the button */
 	/* shape */
 	border-radius: 10px;
 	height: 35px;
@@ -45,107 +38,79 @@ body, html {
 
 }
 
-#insidewrapper {
-	/*width:500px; */
-	margin-top: -20px;
-	height:100%;
-	width: 60%;
-	margin-left:300px;
+#insidewrapper { /* BIG DIV */
+	margin-left:300px; margin-top: -20px;
+	height:100%; width: 60%; 
+	max-width: 600px; min-width: 500px;
 	position: absolute;
-	z-index: 1;
-		/* to make it hide behind header */
+	z-index: 1; /* to make it hide behind header */
+	font-size: 15px;
+	float: left;
 }
+	#foot {
+		display: none;
+		color: white;
+		font-size: 20px;
+		background-color: black;
+		margin-top: -155px; margin-left: 5px;
+		opacity: 0.9;
+		height: 150px; width: 100%;
+		text-align: center;
+	}
+		#map-canvas {
+			float: left;
+			color: black;
+			width: 33%;
+			height: 150px;
+		}
+		#desc {
+			float: left;
+			overflow-y: auto;
+			background-color: #CC3300;
+			width: 33%;
+			height: 100%;
+		}
+		#like {
+			float: left;
+			overflow-y: auto;
+			background-color: black;
+			z-index: 4;
+		}
 
-#foot {
-	display: none;
-
-	color: white;
-	font-size: 20px;
-
-	margin-top: -95px;
-	margin-left: 5px;
-	background-color: black;
-	opacity: 0.9;
-	height: 150px;
-	width: 100%;
-	z-index: 3;
-	text-align: center;
-}
-
-#map-canvas {
-	color: black;
-	overflow-y: auto;
-	background-color: black;
-	width: 225px;
-	height: 150px;
-	z-index: 4;
-	position: absolute;
-}
-
-#desc {
-	overflow-y: auto;
-	margin-top: -150px;
-	margin-left: 225px;
-	background-color: green;
-	width: 200px;
-	height: 100%;
-	z-index: 4;
-}
-
-#venuetab { /* this has the restaurant info */
-	
+#venuetab { /* the popup w/ the restaurant info */
 	color: black;
 	overflow-y: auto;
 	height: 355px;
-	width: 60%;
+	/*width: 60%;*/
 	background-color: #CC3300;
 	margin-top: -505px;
 	margin-left: 5px;
-	position: fixed;
-	z-index: 5;
+	/*position: fixed;
+	z-index: 5;*/
+	float: left;
 }
 
-#venuetab h1 {
-	color: black;
-}
-
-#like {
-	overflow-y: auto;
-	margin-top: -150px;
-	background-color: blue;
-	margin-left: 425px;
-	width: 150px;
-	height: 100%;
-	z-index: 4;
-}
+#venuetab h1 { color: black; }
 
 #data {
-	/* height: 800px; */
-	/*margin-top: 50px; */
+	/* 	height: 800px;
+		margin-top: 50px; */
 	margin-top: -20px;
 	height: 550px;
-	width:250px;
+	width: 250px;
 	overflow-x: hidden;
 	overflow-y: auto;
 	padding-top:22px;
+	float: left;
 }
 
 #data div {
 	padding: 5% 400px 5% 30%;
 	margin-left: -50px;
-	width:100%;
-	margin-top:-30px;
+	width: 100%;
+	margin-top: -30px;
 }
 
-#data div img {
-	height:70%;
-	width:85%;
-}
-
-.selected {
-	background-color: #00ffff;
-}
-
-.selected img {
-	background-color: gray;
-}
+#data div img { height:70%; width:85%; }
+.selected { background-color: #00ffff; }
+.selected img { background-color: gray; }

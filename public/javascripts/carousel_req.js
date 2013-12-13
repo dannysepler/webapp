@@ -10,16 +10,12 @@ var actual_food_carousel=function(link,renlink,userid,res){
     method: "POST"
   }, function (error, response, body) {
     var end = jsonfunctions.foodstream(body);
-    
-    // render it!
-    res.render(renlink, {
-      title: 'Food Carousel',
+    /* render it! */
+    res.render(renlink, { title: 'Food Carousel',
       data: { header: end }
     });
-
   });
 }
-
 
 /*	~~~~~~~~~~~~~~~~
 		  THE NAMES

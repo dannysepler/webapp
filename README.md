@@ -4,7 +4,7 @@
 
 ### We eat in style
 
-[The website](http://app.eatable.at)
+[The website](http://app.eatable.at/template)
 
 **Table of contents:**
 

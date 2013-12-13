@@ -9,7 +9,7 @@ function foodstream( input ) {
 		var goodstuff = object[i-1];
 		end	+="<div class= \"hero-unit\" id=\""+goodstuff.id+"\">"
 			+ goodstuff.name+"<br>"
-			+"<img class=\"fade\" src=\"http://img.eatable.at"+goodstuff.image_url+"\" \/>"
+			+"<img class=\"fade\" src=\"http://img.eatable.at"+goodstuff.image_url+"\"\/>"
 			+"</div>";
     }
     return end;
