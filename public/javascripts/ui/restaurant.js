@@ -1,7 +1,11 @@
 $(document).ready(function() {
     var large={width: "100%"};
     var small={width: "225px"};
-    var count=1; 
+    var count=1;
+    	/* 
+    		IF COUNT == 1, the popup's not showing 
+    		IF COUNT == 0, it is
+    	*/
 
 	$('#venuetab').hide();
 
@@ -13,11 +17,20 @@ $(document).ready(function() {
 	});
 
 	$('.hero-unit').click(function() {
-		slideback();
+		hide();
 		$('#foot').show();
 	});
 
-	function slideback() {
+	function decide() /* decides what to do */
+	{ (count==1)?show():hide(); }
+
+	function show() /* shows restaurant info */ 
+	{
+		
+	}
+
+	function hide() /* hides restaurant info */
+	{
 		if ( $('#venuetab').is( ":visible") ) {
 			$('#venuetab').slideToggle('fast');
 			// hide it

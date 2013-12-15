@@ -7,15 +7,15 @@ body, html {
 }
 
 .dropdown { color: white; float: left; }
+#wrapper {height: 500px; } /*the white box*/ 
 .fade { opacity: 1; }
 
 #sticker {
-  	height: 500px;
-  	width: 100%;
+  	height: 500px; width: 100%;
   	padding: 5px;
 }
 
-#restaurant {	/* this is the button */
+#restaurant {	/* the button */
 	/* shape */
 	border-radius: 10px;
 	height: 35px;
@@ -30,7 +30,7 @@ body, html {
 	/* other details */
 	position: absolute;
 	cursor: pointer;
-	margin-left: 490px;
+	margin-left: 80%;
 	margin-top: 15px;
 	display: none;
 	z-index: 6;
@@ -88,15 +88,12 @@ body, html {
 	/*position: fixed;
 	z-index: 5;*/
 	float: left;
-}
-
-#venuetab h1 { color: black; }
+} 
+	#venuetab h1 { color: black; }
 
 #data {
-	/* 	height: 800px;
-		margin-top: 50px; */
 	margin-top: -20px;
-	height: 550px;
+	height: 500px; /* the white box is 500px also*/
 	width: 250px;
 	overflow-x: hidden;
 	overflow-y: auto;
@@ -104,13 +101,13 @@ body, html {
 	float: left;
 }
 
-#data div {
-	padding: 5% 400px 5% 30%;
-	margin-left: -50px;
-	width: 100%;
-	margin-top: -30px;
-}
-
-#data div img { height:70%; width:85%; }
-.selected { background-color: #00ffff; }
-.selected img { background-color: gray; }
+	#data div {
+		padding: 5% 400px 5% 30%;
+		margin-left: -50px;
+		margin-top: -30px;
+		width: 100%;
+	}
+	#data div img { height:70%; width:85%; }
+	
+	.selected { background-color: #00ffff; }
+	.selected img { background-color: gray; }
