@@ -1,6 +1,6 @@
 # **Eatable Webapp**
 
-![Logo](http://app.eatable.at/images/logo.png)
+![Logo](http://www.pixelsink.com/assets/portfolio-images/logo-eatable-thumb2.jpg)
 
 ### We eat in style
 
